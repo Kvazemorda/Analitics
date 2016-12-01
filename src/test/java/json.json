@@ -1,0 +1,75 @@
+{
+  "query" : {
+    "ids" : [ 38437860 ],
+    "dimensions" : [ "ym:s:lastTrafficSource" ],
+    "metrics" : [ "ym:s:visits" ],
+    "sort" : [ "-ym:s:visits" ],
+    "date1" : "2016-10-28",
+    "date2" : "2016-11-27",
+    "attribution" : "last",
+    "group" : "month",
+    "auto_group_size" : "1",
+    "quantile" : "50",
+    "currency" : "RUB",
+    "auto_group_type" : "month"
+  },
+  "data" : [ {
+    "dimensions" : [ {
+      "name" : "Переходы по рекламе",
+      "icon_id" : "3",
+      "icon_type" : "traffic-source",
+      "id" : "ad"
+    } ],
+    "metrics" : [ [ 1.0, 889.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы из социальных сетей",
+      "icon_id" : "8",
+      "icon_type" : "traffic-source",
+      "id" : "social"
+    } ],
+    "metrics" : [ [ 0.0, 76.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Прямые заходы",
+      "icon_id" : "0",
+      "icon_type" : "traffic-source",
+      "id" : "direct"
+    } ],
+    "metrics" : [ [ 5.0, 60.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Внутренние переходы",
+      "icon_id" : "-1",
+      "icon_type" : "traffic-source",
+      "id" : "internal"
+    } ],
+    "metrics" : [ [ 0.0, 8.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы из поисковых систем",
+      "icon_id" : "2",
+      "icon_type" : "traffic-source",
+      "id" : "organic"
+    } ],
+    "metrics" : [ [ 0.0, 8.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы по ссылкам на сайтах",
+      "icon_id" : "1",
+      "icon_type" : "traffic-source",
+      "id" : "referral"
+    } ],
+    "metrics" : [ [ 0.0, 1.0 ] ]
+  } ],
+  "total_rows" : 2,
+  "total_rows_rounded" : false,
+  "sampled" : false,
+  "sample_share" : 1.0,
+  "sample_size" : 1049,
+  "sample_space" : 1049,
+  "data_lag" : 83,
+  "totals" : [ [ 6.0, 1042.0 ] ],
+  "last_period_index" : 1,
+  "time_intervals" : [ [ "2016-10-28", "2016-10-31" ], [ "2016-11-01", "2016-11-27" ] ]
+}
