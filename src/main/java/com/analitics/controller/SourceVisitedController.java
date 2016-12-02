@@ -2,7 +2,6 @@ package com.analitics.controller;
 
 import com.analitics.entity.respons.ya.data.SourceVisitedFromYa;
 import com.analitics.report.PDFCreator;
-import com.itextpdf.text.DocumentException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -20,8 +19,6 @@ public class SourceVisitedController {
         try {
             PDFCreator pdfCreator = new PDFCreator(sourceVisitedFromYa);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (DocumentException e) {
             e.printStackTrace();
         }
         return sourceVisitedFromYa.toString();
