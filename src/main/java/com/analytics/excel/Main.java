@@ -3,7 +3,7 @@ package com.analytics.excel;
 import com.analytics.Constant;
 import com.analytics.client.Client;
 import com.analytics.client.QueryClient;
-import com.analytics.dao.DynamicConversationDAO;
+import com.analytics.dao.AdvertAnalyticDAO;
 
 import java.util.ArrayList;
 
@@ -22,17 +22,13 @@ public class Main {
         client.getDirectCompanyID().add("22606166");
 
         client.setoAuthorIDDirect(Constant.QUATH_TOKEN_DIRECT);
-        queryClient = new QueryClient("2016-10-28", "2016-11-27", client);
-
+        queryClient = new QueryClient("2016-06-28", "2016-07-27", client);
+/*
         CreateExcelReport createExcelTemplate = new CreateExcelReport();
+  */
 
-       /* GetSummarySetDAO getSummarySetDAO = new GetSummarySetDAO();
-        getSummarySetDAO.getSummaryStat(queryClient);*/
-
-        //DayDAO dayDAO = new DayDAO();
-        DynamicConversationDAO dynamicConversationDAO = new DynamicConversationDAO();
-        System.out.println(dynamicConversationDAO.getList(Main.queryClient));
-
+        AdvertAnalyticDAO advertAnalyticDAO = new AdvertAnalyticDAO();
+        advertAnalyticDAO.getAdvertAnalyticList(queryClient);
     }
 
 

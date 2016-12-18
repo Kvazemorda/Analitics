@@ -20,7 +20,7 @@ public class UserAgeDAO {
                 .queryParam("date2", queryClient.getDate2())
                 .queryParam("group", "month")
                 .queryParam("accuracy", "full")
-                .queryParam("metrics", "ym:s:anyGoalConversionRate")
+                .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:ageInterval")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
@@ -42,7 +42,6 @@ public class UserAgeDAO {
                 metric += metricNext;
             }
             list.add(new UserAge(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + metric + " " + conversation);
         }
 
         return list;

@@ -24,7 +24,7 @@ public class DynamicConversationDAO {
                 .queryParam("group", "day")
                 .queryParam("accuracy", "full")
                 .queryParam("dimensions", "ym:s:date")
-                .queryParam("metrics", "ym:s:anyGoalConversionRate")
+                .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())

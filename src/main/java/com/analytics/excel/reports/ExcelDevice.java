@@ -51,18 +51,18 @@ public class ExcelDevice implements FillingExcel{
                 case "ПК" :
                     changeCellFromRange(PC_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
                     changeCellFromRange(PC_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(PC_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceQuality() / deviceVisited) * 100));
+                    changeCellFromRange(PC_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
                     break;
                 case "Смартфоны" :
                     changeCellFromRange(TAB_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
                     changeCellFromRange(TAB_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(TAB_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceQuality() / deviceVisited) * 100));
+                    changeCellFromRange(TAB_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
                     break;
-                case "Планшеты, ТВ":
+                case "Планшеты":
                     changeCellFromRange(MOBIL_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
                     changeCellFromRange(MOBIL_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(MOBIL_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceQuality() / deviceVisited) * 100));
+                    changeCellFromRange(MOBIL_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
                     break;
             }
