@@ -1,0 +1,87 @@
+{
+  "query" : {
+    "ids" : [ 38437860 ],
+    "dimensions" : [ "ym:s:lastTrafficSource" ],
+    "metrics" : [ "ym:s:anyGoalConversionRate", "ym:s:visits" ],
+    "sort" : [ "-ym:s:anyGoalConversionRate" ],
+    "date1" : "2016-10-28",
+    "date2" : "2016-11-27",
+    "attribution" : "last",
+    "group" : "year",
+    "auto_group_size" : "1",
+    "quantile" : "50",
+    "currency" : "RUB",
+    "auto_group_type" : "year"
+  },
+  "data" : [ {
+    "dimensions" : [ {
+      "name" : "Прямые заходы",
+      "icon_id" : "0",
+      "icon_type" : "traffic-source",
+      "id" : "direct"
+    } ],
+    "metrics" : [ [ 4.61538462 ], [ 65.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Внутренние переходы",
+      "icon_id" : "-1",
+      "icon_type" : "traffic-source",
+      "id" : "internal"
+    } ],
+    "metrics" : [ [ 0.0 ], [ 8.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы по ссылкам на сайтах",
+      "icon_id" : "1",
+      "icon_type" : "traffic-source",
+      "id" : "referral"
+    } ],
+    "metrics" : [ [ 0.0 ], [ 1.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы из поисковых систем",
+      "icon_id" : "2",
+      "icon_type" : "traffic-source",
+      "id" : "organic"
+    } ],
+    "metrics" : [ [ 0.0 ], [ 9.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы по рекламе",
+      "icon_id" : "3",
+      "icon_type" : "traffic-source",
+      "id" : "ad"
+    } ],
+    "metrics" : [ [ 0.0 ], [ 890.0 ] ]
+  }, {
+    "dimensions" : [ {
+      "name" : "Переходы из социальных сетей",
+      "icon_id" : "8",
+      "icon_type" : "traffic-source",
+      "id" : "social"
+    } ],
+    "metrics" : [ [ 0.0 ], [ 76.0 ] ]
+  } ],
+  "total_rows" : 1,
+  "total_rows_rounded" : false,
+  "sampled" : false,
+  "sample_share" : 1.0,
+  "sample_size" : 1050,
+  "sample_space" : 1050,
+  "data_lag" : 84,
+  "totals" : [ [ 0.28598665 ], [ 1049.0 ] ],
+  "last_period_index" : 0,
+  "time_intervals" : [ [ "2016-10-28", "2016-11-27" ] ]
+}
+
+https://oauth.yandex.ru/authorize?response_type=code&client_id=8e5c0c896f2749c8b08a5324b53d2bf0&device_name=name&login_hint=ppovankorneft&force_confirm=yes;
+https://api.direct.yandex.ru/v4/json/method=GetClientInfo&token=8733195&locale=ru&param=ppovankorneft
+
+https://oauth.yandex.ru/authorize?response_type=token&client_id=8e5c0c896f2749c8b08a5324b53d2bf0&device_id=123456&device_name=name&display=popup&login_hint=ppovankorneft&force_confirm=yes
+https://oauth.yandex.ru/authorize?response_type=token&client_id=8e5c0c896f2749c8b08a5324b53d2bf0&device_id=123456&device_name=name&display=popup&login_hint=direct.exel&force_confirm=yes
+AQAAAAAZtlXnAAPC2zPHP_BBvUMfs_1632QL40I
+device_id=
+
+[& state=<произвольная строка>]
+
+{"method": "GetClientInfo","param": ["agrom"],"locale": "ru","token": "0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f"}
