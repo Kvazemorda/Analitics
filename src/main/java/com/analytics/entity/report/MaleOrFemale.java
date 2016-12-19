@@ -3,15 +3,15 @@ package com.analytics.entity.report;
 public class MaleOrFemale {
     private String maleOrFemale;
     private double maleOrFemaleVisited;
-    private double maleOrFemaleConversationPer;
+    private double maleOrFemaleConversation;
 
     public MaleOrFemale() {
     }
 
-    public MaleOrFemale(String maleOrFemale, double maleOrFemaleVisited, double maleOrFemaleConversationPer) {
+    public MaleOrFemale(String maleOrFemale, double maleOrFemaleVisited, double maleOrFemaleConversation) {
         this.maleOrFemale = maleOrFemale;
         this.maleOrFemaleVisited = maleOrFemaleVisited;
-        this.maleOrFemaleConversationPer = maleOrFemaleConversationPer;
+        this.maleOrFemaleConversation = maleOrFemaleConversation;
     }
 
     public String getMaleOrFemale() {
@@ -30,11 +30,11 @@ public class MaleOrFemale {
         this.maleOrFemaleVisited = maleOrFemaleVisited;
     }
 
-    public double getMaleOrFemaleConversationPer() {
-        return maleOrFemaleConversationPer;
+    public double getMaleOrFemaleConversation() {
+        return maleOrFemaleConversation;
     }
 
-    public void setMaleOrFemaleConversationPer(double maleOrFemaleConversationPer) {
-        this.maleOrFemaleConversationPer = maleOrFemaleConversationPer;
+    public void setMaleOrFemaleConversation(double maleOrFemaleConversation) {
+        this.maleOrFemaleConversation = maleOrFemaleConversation;
     }
 }

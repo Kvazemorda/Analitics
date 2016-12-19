@@ -18,6 +18,7 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class StatItemDAO {
 
@@ -58,6 +59,7 @@ public class StatItemDAO {
 
             Gson gson = new Gson();
             Data data = gson.fromJson(jsonString, Data.class);
+            System.out.println(new Date());
             ArrayList<StatItem> list = data.getData();
             statItem = new StatItem();
             AdvertCost advertCost = new AdvertCost();
@@ -65,7 +67,6 @@ public class StatItemDAO {
             int countDayContext = 0;
             int countDaySearch = 0;
             double costContextByPeriod = 0.0;
-            System.out.println("date   Click    SumClick" );
             for(int i = 0; i < list.size(); i++){
                 statItem.setClicksContext(statItem.getClicksContext() + list.get(i).getClicksContext());
                 statItem.setClicksSearch(statItem.getClicksSearch() + list.get(i).getClicksSearch());
@@ -86,7 +87,6 @@ public class StatItemDAO {
                 if(list.get(i).getSumContext() != 0.0){
                     countDayContext++;
                 }
-                System.out.println(list.get(i).getStatDate() + " " + list.get(i).getClicksContext() + " " + list.get(i).getSumContext());
             }
             statItem.setCostContext((float)costContextByPeriod);
             statItem.setCostSearch((float) costSearchByPeriod);

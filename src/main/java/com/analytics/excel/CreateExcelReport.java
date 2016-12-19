@@ -41,6 +41,8 @@ public class CreateExcelReport {
             ExcelRegion excelRegion = new ExcelRegion();
             ExcelDevice excelDevice = new ExcelDevice();
             ExcelUserAge excelUserAge = new ExcelUserAge();
+            ExcelMaleOrFemale excelMaleOrFemale = new ExcelMaleOrFemale();
+            ExcelWeek excelWeek = new ExcelWeek();
 
             creationHelper = book.getCreationHelper();
             book.write(fileOutputStream);
