@@ -63,7 +63,7 @@ public class ExcelMaleOrFemale implements FillingExcel {
             Cell conversationCell = row.createCell(MALE_OR_FEMALE_CONVERSATION_PER);
             conversationCell.setCellValue(maleOrFemales.get(i).getMaleOrFemaleConversation());
 
-            if(maleOrFemales.get(i).getMaleOrFemale().equals("Мужчины")){
+            if(maleOrFemales.get(i).getMaleOrFemale().equals("мужской")){
                 maleVisited += maleOrFemales.get(i).getMaleOrFemaleVisited();
                 maleConversation += maleOrFemales.get(i).getMaleOrFemaleConversation();
             }else{

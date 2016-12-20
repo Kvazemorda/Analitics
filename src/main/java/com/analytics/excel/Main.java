@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         client = new Client();
         client.setMetricsID("38437860");
-        client.setoAuthorID("AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g");
+        client.setoAuthorID("AQAAAAAZtlXnAAOfZy_UO_ohF09ig1-Ur7eADwk");
         client.setDirectCompanyID(new ArrayList<>());
         client.getDirectCompanyID().add("22568139");
         client.getDirectCompanyID().add("22568167");
