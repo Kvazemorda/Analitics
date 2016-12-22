@@ -59,7 +59,7 @@ public class ExcelDevice implements FillingExcel{
                     changeCellFromRange(TAB_CONVERSATION_PER, (deviceClient.getDeviceQuality()) / deviceVisited * 100);
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
                     break;
-                case "Планшеты, ТВ":
+                case "Планшеты":
                     changeCellFromRange(MOBIL_VISITED, deviceClient.getDeviceQuality());
                     changeCellFromRange(MOBIL_CONVERSATION, deviceClient.getDeviceConversation());
                     changeCellFromRange(MOBIL_CONVERSATION_PER, (deviceClient.getDeviceQuality() / deviceVisited) * 100);

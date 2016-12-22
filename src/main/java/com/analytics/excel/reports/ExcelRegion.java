@@ -46,7 +46,7 @@ public class ExcelRegion implements FillingExcel{
                 row = sheet.createRow(i + 1);
             }
             Cell cellSource = row.createCell(REGION_NAME_CELL);
-            cellSource.setCellValue(regions.get(i).getRegionName() + " (" + regions.get(i).getRegionConversation() + "%)");
+            cellSource.setCellValue(regions.get(i).getRegionName() + " (" + decimalFormat.format(regions.get(i).getRegionConversation()) + "%)");
 
             Cell cellQuality = row.createCell(REGION_QUALITY_CELL);
             cellQuality.setCellValue(regions.get(i).getRegionQuality());

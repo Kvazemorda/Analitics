@@ -13,6 +13,8 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
+import java.text.DecimalFormat;
+
 public class ExcelSearchOrContext implements FillingExcel{
     private StatItem statItem;
 
@@ -36,8 +38,10 @@ public class ExcelSearchOrContext implements FillingExcel{
     public static String COUNT_ADVERT = "countAdvert";
     public static String AVR_COST_OF_ADVERT = "averCostOfAvert";
     private ExcelRecommendation excelRecommendation;
+    private DecimalFormat decimalFormat;
 
     public ExcelSearchOrContext(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        decimalFormat = new DecimalFormat("##0.00");
         this.excelRecommendation = excelRecommendation;
         statItem = new StatItemDAO().getSummaryStat(queryClient);
         double contextCost = statItem.getClicksContext() * statItem.getSumContext();
@@ -55,8 +59,8 @@ public class ExcelSearchOrContext implements FillingExcel{
         changeCellFromRange(YA_NET_CTR, contextCtr + "%");
         changeCellFromRange(YA_FIND_AVR_COST_CLICK, statItem.getSumSearch());
         changeCellFromRange(YA_NET_AVR_COST_CLICK, String.valueOf(statItem.getSumContext()));
-        changeCellFromRange(YA_FIND_CONVERSATION, statItem.getGoalConversionSearch() + "%");
-        changeCellFromRange(YA_NET_CONVERSATION, statItem.getGoalConversionContext() + "%");
+        changeCellFromRange(YA_FIND_CONVERSATION, decimalFormat.format(statItem.getGoalConversionSearch()) + "%");
+        changeCellFromRange(YA_NET_CONVERSATION, decimalFormat.format(statItem.getGoalConversionContext()) + "%");
         changeCellFromRange(YA_FIND_COST_GOAL, statItem.getGoalCostSearch());
         changeCellFromRange(YA_NET_COST_GOAL, statItem.getGoalCostContext());
         changeCellFromRange(YA_FIND_GET_GOAL, statItem.getGoalConversionSearch());

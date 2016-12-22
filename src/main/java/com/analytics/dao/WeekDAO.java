@@ -11,6 +11,7 @@ import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.TreeSet;
 
 public class WeekDAO {
 
@@ -47,7 +48,9 @@ public class WeekDAO {
             for(Double metricNext: metrics.get(1)) {
                 metric += metricNext;
             }
-            list.add(new Week(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
+            TreeSet<Week> set = new TreeSet<>();
+            set.add(new Week(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
+            list.addAll(set);
             System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + metric + " " + conversation);
         }
 

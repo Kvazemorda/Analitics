@@ -62,16 +62,15 @@ public class ExcelMaleOrFemale implements FillingExcel {
 
             Cell conversationCell = row.createCell(MALE_OR_FEMALE_CONVERSATION_PER);
             conversationCell.setCellValue(maleOrFemales.get(i).getMaleOrFemaleConversation());
-
-            if(maleOrFemales.get(i).getMaleOrFemale().equals("Мужской")){
+            if(maleOrFemales.get(i).getMaleOrFemale().equals("мужской")){
                 maleVisited += maleOrFemales.get(i).getMaleOrFemaleVisited();
                 maleConversation += maleOrFemales.get(i).getMaleOrFemaleConversation();
-            }else{
+            }
+            if(maleOrFemales.get(i).getMaleOrFemale().equals("женский")){
                 femaleVisited += maleOrFemales.get(i).getMaleOrFemaleVisited();
                 femaleConversation += maleOrFemales.get(i).getMaleOrFemaleConversation();
             }
         }
-
 
         changeRange(2, maleOrFemales.size() + 1, MALE_OR_FEMALE_COLUMN, MALE_OR_FEMALE_RN);
         changeRange(2, maleOrFemales.size() + 1, MALE_OR_FEMALE_VISITED_COLUMN, MALE_OR_FEMALE_VISITED_RN);
@@ -87,8 +86,9 @@ public class ExcelMaleOrFemale implements FillingExcel {
         }else {
             changeCellFromRange(WHICH_CONVERSATION_MORE, "Коэф. конверсии выше у женщин");
         }
-        String maleConversationPer = decimalFormat.format((maleConversation / maleVisited)*100);
-        String femaleConversationPer = decimalFormat.format((femaleConversation / femaleVisited)*100);
+        double maleConversationPer = (maleConversation / maleVisited)*100;
+        double femaleConversationPer = (femaleConversation / femaleVisited)*100;
+
         changeCellFromRange(FEMALE_CONVERSTAION_PER, femaleConversationPer);
         changeCellFromRange(MALE_CONVERSTAION_PER, maleConversationPer);
 
@@ -117,8 +117,23 @@ public class ExcelMaleOrFemale implements FillingExcel {
         }else {
             c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
         }
+    }
 
-
+    public void changeCellFromRange(String rangeName, double changeValue) {
+        int namedCellIdx = CreateExcelReport.book.getNameIndex(rangeName);
+        Name aNamedCell = CreateExcelReport.book.getNameAt(namedCellIdx);
+        AreaReference aref = new AreaReference(aNamedCell.getRefersToFormula());
+        CellReference[] cells = aref.getAllReferencedCells();
+        Cell c = null;
+        Sheet s = CreateExcelReport.book.getSheet(cells[0].getSheetName());
+        Row r =  s.getRow(cells[0].getRow());
+        c = r.getCell(cells[0].getCol());
+        c.setCellValue(changeValue);
+        if(rangeName.equals(FEMALE_CONVERSTAION_PER) || rangeName.equals(MALE_CONVERSTAION_PER)){
+            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION_CENTER);
+        }else {
+            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+        }
     }
 
 }
