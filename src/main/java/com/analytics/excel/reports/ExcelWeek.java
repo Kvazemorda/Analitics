@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.WeekDAO;
 import com.analytics.entity.report.Week;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -30,13 +30,14 @@ public class ExcelWeek implements FillingExcel {
     public static final String DAY_WEEK_CONVERSATION_COLUMN = "T";
     public static final String POPULAR_DAY_OF_WEEK = "popularDayOfWeek";
     public static final String MORE_CONVERSATION_DAY_OF_WEEK = "moreConversionDayOfWeek";
-
+    private ExcelRecommendation excelRecommendation;
 
     private DecimalFormat decimalFormat;
 
-    public ExcelWeek() {
+    public ExcelWeek(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
-        this.excelWeeks = new WeekDAO().getWeekList(Main.queryClient);
+        this.excelWeeks = new WeekDAO().getWeekList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
 
@@ -74,18 +75,14 @@ public class ExcelWeek implements FillingExcel {
 
         if(dayOfWeekConversation.equals("")){
             changeCellFromRange(MORE_CONVERSATION_DAY_OF_WEEK, "Нет конверсии");
-        }else if (dayOfWeekConversation.equals("Вторник")) {
-            changeCellFromRange(MORE_CONVERSATION_DAY_OF_WEEK, "Коэф. конверсий выше во " + dayOfWeekConversation);
         }else {
-            changeCellFromRange(MORE_CONVERSATION_DAY_OF_WEEK, "Коэф. конверсий выше в " + dayOfWeekConversation);
+            changeCellFromRange(MORE_CONVERSATION_DAY_OF_WEEK, dayOfWeekConversation + " - самый высокий коэф. конверсии");
         }
 
         if(dayOfWeekVisited.equals("")){
             changeCellFromRange(POPULAR_DAY_OF_WEEK, "Нет сеансов");
-        }else if (dayOfWeekVisited.equals("Вторник")) {
-            changeCellFromRange(POPULAR_DAY_OF_WEEK, "Сеансов больше во " + dayOfWeekVisited);
-        }else {
-            changeCellFromRange(POPULAR_DAY_OF_WEEK, "Сеансов больше в " + dayOfWeekVisited);
+        }else{
+            changeCellFromRange(POPULAR_DAY_OF_WEEK, dayOfWeekVisited + " - больше всего сеансов");
         }
     }
 

@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.DeviceClientDAO;
 import com.analytics.entity.report.DeviceClient;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -28,16 +28,16 @@ public class ExcelDevice implements FillingExcel{
     public static final String MOBIL_CONVERSATION = "mobilConversation";
     public static final String MOBIL_CONVERSATION_PER = "mobilConversationPer";
     public static final String ITEMS_QULITY_PER= "itemsQualPerTabAndMob";
-
+    private ExcelRecommendation excelRecommendation;
 
     private DecimalFormat decimalFormat;
 
-    public ExcelDevice() {
+    public ExcelDevice(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
-        this.devices = new DeviceClientDAO().deviceList(Main.queryClient);
+        this.devices = new DeviceClientDAO().deviceList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
-
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
@@ -49,24 +49,25 @@ public class ExcelDevice implements FillingExcel{
         for(DeviceClient deviceClient: devices){
             switch (deviceClient.getDeviceName()){
                 case "ПК" :
-                    changeCellFromRange(PC_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
-                    changeCellFromRange(PC_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(PC_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
+                    changeCellFromRange(PC_VISITED, deviceClient.getDeviceQuality());
+                    changeCellFromRange(PC_CONVERSATION, deviceClient.getDeviceConversation());
+                    changeCellFromRange(PC_CONVERSATION_PER, (deviceClient.getDeviceQuality() / deviceVisited) * 100);
                     break;
                 case "Смартфоны" :
-                    changeCellFromRange(TAB_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
-                    changeCellFromRange(TAB_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(TAB_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
+                    changeCellFromRange(TAB_VISITED, deviceClient.getDeviceQuality());
+                    changeCellFromRange(TAB_CONVERSATION, deviceClient.getDeviceConversation());
+                    changeCellFromRange(TAB_CONVERSATION_PER, (deviceClient.getDeviceQuality()) / deviceVisited * 100);
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
                     break;
-                case "Планшеты":
-                    changeCellFromRange(MOBIL_VISITED, String.valueOf(deviceClient.getDeviceQuality()));
-                    changeCellFromRange(MOBIL_CONVERSATION, String.valueOf(deviceClient.getDeviceConversation()));
-                    changeCellFromRange(MOBIL_CONVERSATION_PER, decimalFormat.format((deviceClient.getDeviceConversation() / deviceClient.getDeviceQuality()) * 100));
+                case "Планшеты, ТВ":
+                    changeCellFromRange(MOBIL_VISITED, deviceClient.getDeviceQuality());
+                    changeCellFromRange(MOBIL_CONVERSATION, deviceClient.getDeviceConversation());
+                    changeCellFromRange(MOBIL_CONVERSATION_PER, (deviceClient.getDeviceQuality() / deviceVisited) * 100);
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
                     break;
             }
         }
+
         tabAndMobilVisited = (tabAndMobilVisited / deviceVisited) * 100;
         changeCellFromRange(ITEMS_QULITY_PER, getDeviceTraffice(tabAndMobilVisited));
     }
@@ -94,6 +95,26 @@ public class ExcelDevice implements FillingExcel{
             c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
         }
     }
+
+    public void changeCellFromRange(String rangeName, double changeValue) {
+        int namedCellIdx = CreateExcelReport.book.getNameIndex(rangeName);
+        Name aNamedCell = CreateExcelReport.book.getNameAt(namedCellIdx);
+        AreaReference aref = new AreaReference(aNamedCell.getRefersToFormula());
+        CellReference[] cells = aref.getAllReferencedCells();
+        Cell c = null;
+        Sheet s = CreateExcelReport.book.getSheet(cells[0].getSheetName());
+        Row r =  s.getRow(cells[0].getRow());
+        c = r.getCell(cells[0].getCol());
+        c.setCellValue(changeValue);
+        if(r.getRowNum() % 2 != 0){
+            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+        }else if(ITEMS_QULITY_PER.equals(rangeName)){
+            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+        }else {
+            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+        }
+    }
+
     private String getDeviceTraffice(double visited){
         String pattern = "##0.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);

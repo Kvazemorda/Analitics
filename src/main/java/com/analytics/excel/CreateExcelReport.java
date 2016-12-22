@@ -1,5 +1,6 @@
 package com.analytics.excel;
 
+import com.analytics.client.QueryClient;
 import com.analytics.entity.report.SourceVisited;
 import com.analytics.excel.reports.*;
 import org.apache.poi.hssf.util.AreaReference;
@@ -14,35 +15,41 @@ public class CreateExcelReport {
     private String nameTemplate = "template/report.xlsx";
     private String pathToSaveReport = "ready/report1.xlsx";
     public static XSSFWorkbook book;
-    public static XSSFSheet sheet;
+    public static XSSFSheet sheet, sheetReport;
     public static XSSFSheet sheetStyle;
     private CreationHelper creationHelper;
     private SourceVisited sourceVisited;
+    private QueryClient queryClient;
+    private ExcelRecommendation excelRecommendation;
 
 
-    public CreateExcelReport() {
+    public CreateExcelReport(QueryClient queryClient) {
         InputStream inputStream = null;
         book = null;
+        this.queryClient = queryClient;
         try {
             //create Excel book
             inputStream = new FileInputStream(nameTemplate);
             book = new XSSFWorkbook(inputStream);
             sheet = book.getSheet("ChanelTrafic");
+            sheetReport = book.getSheet("report");
             sheetStyle = book.getSheet("style");
             clearSheet();
             FileOutputStream fileOutputStream = new FileOutputStream(pathToSaveReport);
 
-            ExcelSourceVisited excelSourceVisited = new ExcelSourceVisited();
-            ExcelSourceDetail excelSourceDetail = new ExcelSourceDetail();
-            ExcelGoal excelGoal = new ExcelGoal();
-            ExcelDynamicConversation excelDynamicConversation = new ExcelDynamicConversation();
-            ExcelFunnel excelFunnel = new ExcelFunnel();
-            ExcelSearchOrContext excelSearchOrContext = new ExcelSearchOrContext();
-            ExcelRegion excelRegion = new ExcelRegion();
-            ExcelDevice excelDevice = new ExcelDevice();
-            ExcelUserAge excelUserAge = new ExcelUserAge();
-            ExcelMaleOrFemale excelMaleOrFemale = new ExcelMaleOrFemale();
-            ExcelWeek excelWeek = new ExcelWeek();
+            ExcelSourceVisited excelSourceVisited = new ExcelSourceVisited(queryClient, excelRecommendation);
+            ExcelSourceDetail excelSourceDetail = new ExcelSourceDetail(queryClient, excelRecommendation);
+            ExcelGoal excelGoal = new ExcelGoal(queryClient, excelRecommendation);
+            ExcelDynamicConversation excelDynamicConversation = new ExcelDynamicConversation(queryClient, excelRecommendation);
+            ExcelFunnel excelFunnel = new ExcelFunnel(queryClient, excelRecommendation);
+            ExcelSearchOrContext excelSearchOrContext = new ExcelSearchOrContext(queryClient, excelRecommendation);
+            ExcelRegion excelRegion = new ExcelRegion(queryClient, excelRecommendation);
+            ExcelDevice excelDevice = new ExcelDevice(queryClient, excelRecommendation);
+            ExcelUserAge excelUserAge = new ExcelUserAge(queryClient, excelRecommendation);
+            ExcelMaleOrFemale excelMaleOrFemale = new ExcelMaleOrFemale(queryClient, excelRecommendation);
+            ExcelWeek excelWeek = new ExcelWeek(queryClient, excelRecommendation);
+            ExcelDayOfWeek excelDayOfWeek = new ExcelDayOfWeek(queryClient, excelRecommendation);
+            ExcelCosts excelCosts = new ExcelCosts(queryClient, excelRecommendation);
 
             creationHelper = book.getCreationHelper();
             book.write(fileOutputStream);

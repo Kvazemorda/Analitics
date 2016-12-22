@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.UserAgeDAO;
 import com.analytics.entity.report.UserAge;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -30,10 +30,11 @@ public class ExcelUserAge implements FillingExcel {
     public static final String USER_CONVERSATION_RN = "userConversation";
     public static final String REGION_AGE_LIDER = "regionAgeLider";
     public static final String REGION_AGE_CONVERSATION_LIDER = "regionAgeConversationLider";
+    private ExcelRecommendation excelRecommendation;
 
-
-    public ExcelUserAge() {
-        this.userAges = new UserAgeDAO().userAgesList(Main.queryClient);
+    public ExcelUserAge(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        this.excelRecommendation = excelRecommendation;
+        this.userAges = new UserAgeDAO().userAgesList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
 

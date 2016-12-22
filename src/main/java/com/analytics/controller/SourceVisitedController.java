@@ -1,23 +1,21 @@
 package com.analytics.controller;
 
-import com.analytics.client.Client;
+import com.analytics.client.QueryClient;
 import com.analytics.dao.SourceVisitedDAO;
 import com.analytics.entity.report.SourceVisited;
-import com.analytics.excel.Main;
 
 import java.util.ArrayList;
 
 public class SourceVisitedController {
-    private Client client;
 
-    public SourceVisitedController(Client client) {
-        this.client = client;
+    public SourceVisitedController() {
+
     }
 
-    public ArrayList<SourceVisited> getVisitedSources(){
+    public ArrayList<SourceVisited> getVisitedSources(QueryClient queryClient){
         SourceVisitedDAO sourceVisitedDAO = new SourceVisitedDAO();
 
-        return  sourceVisitedDAO.getSourceVisited(Main.queryClient);
+        return  sourceVisitedDAO.getSourceVisited(queryClient);
     }
 
 

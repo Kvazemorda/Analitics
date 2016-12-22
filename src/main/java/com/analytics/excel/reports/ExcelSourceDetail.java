@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.SourceDetailDAO;
 import com.analytics.entity.report.SourceDetail;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -28,10 +28,12 @@ public class ExcelSourceDetail implements FillingExcel {
     public static final String VISITED_DETAIL = "detailVisited";
     public static final String CONVERSATION_DETAIL = "detailConversation";
     private DecimalFormat decimalFormat;
+    private ExcelRecommendation excelRecommendation;
 
-    public ExcelSourceDetail() {
+    public ExcelSourceDetail(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         decimalFormat = new DecimalFormat("##0.00");
-        this.sourceDetailList = new SourceDetailDAO().getSourceDetail(Main.queryClient);
+        this.excelRecommendation = excelRecommendation;
+        this.sourceDetailList = new SourceDetailDAO().getSourceDetail(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
 
     }

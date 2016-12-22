@@ -1,12 +1,15 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.FunnelDAO;
 import com.analytics.entity.report.Funnel;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Name;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
@@ -20,10 +23,12 @@ public class ExcelFunnel implements FillingExcel {
     public static String COUNT_GET_GOALS = "countGetGoals";
     public static String RATIO_CONVERSATION = "effecientConversation";
     public static String CPA_COST = "CpaCost";
+    private ExcelRecommendation excelRecommendation;
 
 
-    public ExcelFunnel() {
-        funnel = new FunnelDAO().getFunnel(Main.queryClient);
+    public ExcelFunnel(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        funnel = new FunnelDAO().getFunnel(queryClient);
+        this.excelRecommendation = excelRecommendation;
         DecimalFormat decimalFormat = new DecimalFormat("##0.000");
         String ratioConversation = decimalFormat.format(funnel.getEffecientConversation());
         DecimalFormat decimalFormat1 = new DecimalFormat("##0.00");

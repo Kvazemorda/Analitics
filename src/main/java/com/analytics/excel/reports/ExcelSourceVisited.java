@@ -1,12 +1,15 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.controller.SourceVisitedController;
 import com.analytics.entity.report.SourceVisited;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Name;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.XSSFName;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -24,10 +27,12 @@ public class ExcelSourceVisited implements FillingExcel {
     public static final String QUALITY_PERC_NR = "quality";
     public static final String MORE_CONVERSATION_RN = "moreConversation";
     public static final String MORE_VISITED_RN = "moreVisited";
+    private ExcelRecommendation excelRecommendation;
 
-    public ExcelSourceVisited() {
+    public ExcelSourceVisited(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         //get list source visited site
-        this.sourceVisitedList = new SourceVisitedController(Main.client).getVisitedSources();
+        this.sourceVisitedList = new SourceVisitedController().getVisitedSources(queryClient);
+        this.excelRecommendation = excelRecommendation;
         fillListToExcel(CreateExcelReport.sheet);
     }
 

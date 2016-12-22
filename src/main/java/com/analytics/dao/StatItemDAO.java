@@ -43,16 +43,22 @@ public class StatItemDAO {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         StatItem statItem = null;
 
+
         try {
             HttpPost request = new HttpPost("https://api.direct.yandex.ru/v4/json/");
             StringEntity params = new StringEntity(jsonResult.toString());
+
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
             /*Checking response */
-            String queryString = request.toString();
-            HttpResponse response = httpClient.execute(request);
-            String jsonString = EntityUtils.toString(response.getEntity());
 
+            String queryString = request.toString();
+
+            HttpResponse response = httpClient.execute(request);
+
+            String jsonString = EntityUtils.toString(response.getEntity());
+            System.out.println("///////////////////////////////////");
+            System.out.println(jsonString);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonString);
             ObjectMapper objectMapper = new ObjectMapper();

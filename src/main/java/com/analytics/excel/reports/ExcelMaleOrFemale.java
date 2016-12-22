@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.MaleOrFemaleDAO;
 import com.analytics.entity.report.MaleOrFemale;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -32,15 +32,15 @@ public class ExcelMaleOrFemale implements FillingExcel {
     public static final String WHICH_CONVERSATION_MORE = "whichConversationMore";
     public static final String FEMALE_CONVERSTAION_PER = "femaleConversation";
     public static final String MALE_CONVERSTAION_PER = "maleConversationPer";
-
+    private ExcelRecommendation excelRecommendation;
     private DecimalFormat decimalFormat;
 
-    public ExcelMaleOrFemale() {
+    public ExcelMaleOrFemale(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
-        this.maleOrFemales = new MaleOrFemaleDAO().maleOrFemaleList(Main.queryClient);
+        this.maleOrFemales = new MaleOrFemaleDAO().maleOrFemaleList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
-
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
@@ -63,7 +63,7 @@ public class ExcelMaleOrFemale implements FillingExcel {
             Cell conversationCell = row.createCell(MALE_OR_FEMALE_CONVERSATION_PER);
             conversationCell.setCellValue(maleOrFemales.get(i).getMaleOrFemaleConversation());
 
-            if(maleOrFemales.get(i).getMaleOrFemale().equals("мужской")){
+            if(maleOrFemales.get(i).getMaleOrFemale().equals("Мужской")){
                 maleVisited += maleOrFemales.get(i).getMaleOrFemaleVisited();
                 maleConversation += maleOrFemales.get(i).getMaleOrFemaleConversation();
             }else{
@@ -112,8 +112,13 @@ public class ExcelMaleOrFemale implements FillingExcel {
         Row r =  s.getRow(cells[0].getRow());
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
-        if(r.getRowNum() % 2 != 0){
+        if(rangeName.equals(FEMALE_CONVERSTAION_PER) || rangeName.equals(MALE_CONVERSTAION_PER)){
+            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION_CENTER);
+        }else {
             c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
         }
+
+
     }
+
 }

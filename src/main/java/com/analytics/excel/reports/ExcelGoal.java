@@ -1,9 +1,9 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.GoalDAO;
 import com.analytics.entity.report.Goal;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFName;
@@ -21,10 +21,12 @@ public class ExcelGoal implements FillingExcel {
     public static final String GOAL_COLUMN = "E";
     public static final String GOAL_QUALITY_COLUMN = "F";
     private DecimalFormat decimalFormat;
+    private ExcelRecommendation excelRecommendation;
 
-    public ExcelGoal() {
+    public ExcelGoal(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         decimalFormat = new DecimalFormat("##0.00");
-        this.goalList = new GoalDAO().getGoalList(Main.queryClient);
+        this.excelRecommendation = excelRecommendation;
+        this.goalList = new GoalDAO().getGoalList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
 

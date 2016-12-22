@@ -1,10 +1,10 @@
 package com.analytics.excel.reports;
 
+import com.analytics.client.QueryClient;
 import com.analytics.dao.RegionDAO;
 import com.analytics.entity.report.Region;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
-import com.analytics.excel.Main;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -27,14 +27,13 @@ public class ExcelRegion implements FillingExcel{
     public static final String REGION_QUALITY_COLUMN = "K";
     public static final String REGION_LIDER = "regionLider";
     public static final String REGION_CONVERS_LIDER = "regionConversLider";
-
+    private ExcelRecommendation excelRecommendation;
 
     private DecimalFormat decimalFormat;
 
-    public ExcelRegion() {
+    public ExcelRegion(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         decimalFormat = new DecimalFormat("##0.00");
-        this.regions = new RegionDAO().regionList(Main.queryClient);
-
+        this.regions = new RegionDAO().regionList(queryClient);
         fillListToExcel(CreateExcelReport.sheet);
     }
 

@@ -4,12 +4,14 @@ public class QueryClient {
 
     private String date1;
     private String date2;
+    private double maxCpa;
     private Client client;
 
-    public QueryClient(String date1, String date2, Client client) {
+    public QueryClient(String date1, String date2, Client client, double maxCpa) {
         this.date1 = date1;
         this.date2 = date2;
         this.client = client;
+        this.maxCpa = maxCpa;
     }
 
     public String getDate1() {
@@ -34,5 +36,13 @@ public class QueryClient {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public double getMaxCpa() {
+        return maxCpa;
+    }
+
+    public void setMaxCpa(double maxCpa) {
+        this.maxCpa = maxCpa;
     }
 }
