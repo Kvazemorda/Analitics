@@ -37,6 +37,7 @@ public class GoalDAO {
                     conversation += metrics.get(0).get(i);
             }
                 list.add(new Goal(dimensionDatas.get(j).getDimensions().get(0).getName(), conversation));
+                System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + dimensionDatas.get(j).getDimensions().get(0).getId());
         }
         return list;
     }

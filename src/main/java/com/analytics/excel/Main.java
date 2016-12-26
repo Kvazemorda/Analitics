@@ -36,8 +36,8 @@ public class Main {
         client.getDirectCompanyID().add("22325876");
         client.getDirectCompanyID().add("23139450");
         client.setoAuthorIDDirect("AQAAAAAX4cvvAAPC2-tQJOpLaEY8vk_70YJuZ_U");
-
-        QueryClient queryClient = new QueryClient("2016-11-22", "2016-12-22", client, 250);
+        client.setLoginDirect("AristokratDirect");
+        QueryClient queryClient = new QueryClient("2016-11-23", "2016-11-27", client, 250);
 
         CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
 

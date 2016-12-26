@@ -2,7 +2,8 @@ package com.analytics.excel.reports;
 
 public class ExcelRecommendation {
     private String deviceRecommendation;
-    private String ageUserRecommendation;
+    private String ageUserLowConversationRecommendation;
+    private String ageUserHighConversationRecommendation;
     private String maleOrFemaleRecommendation;
     private String regionRecommendation;
     private String weekRecommendation;
@@ -20,14 +21,6 @@ public class ExcelRecommendation {
 
     public void setDeviceRecommendation(String deviceRecommendation) {
         this.deviceRecommendation = deviceRecommendation;
-    }
-
-    public String getAgeUserRecommendation() {
-        return ageUserRecommendation;
-    }
-
-    public void setAgeUserRecommendation(String ageUserRecommendation) {
-        this.ageUserRecommendation = ageUserRecommendation;
     }
 
     public String getMaleOrFemaleRecommendation() {
@@ -84,5 +77,21 @@ public class ExcelRecommendation {
 
     public void setKeyWordCheapRecommendation(String keyWordCheapRecommendation) {
         this.keyWordCheapRecommendation = keyWordCheapRecommendation;
+    }
+
+    public String getAgeUserLowConversationRecommendation() {
+        return ageUserLowConversationRecommendation;
+    }
+
+    public void setAgeUserLowConversationRecommendation(String ageUserLowConversationRecommendation) {
+        this.ageUserLowConversationRecommendation = ageUserLowConversationRecommendation;
+    }
+
+    public String getAgeUserHighConversationRecommendation() {
+        return ageUserHighConversationRecommendation;
+    }
+
+    public void setAgeUserHighConversationRecommendation(String ageUserHighConversationRecommendation) {
+        this.ageUserHighConversationRecommendation = ageUserHighConversationRecommendation;
     }
 }

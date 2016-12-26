@@ -31,10 +31,13 @@ public class ExcelUserAge implements FillingExcel {
     public static final String REGION_AGE_LIDER = "regionAgeLider";
     public static final String REGION_AGE_CONVERSATION_LIDER = "regionAgeConversationLider";
     private ExcelRecommendation excelRecommendation;
+    private StringBuilder stringLowRecommendation, stringHighRecommendation;
 
     public ExcelUserAge(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         this.excelRecommendation = excelRecommendation;
         this.userAges = new UserAgeDAO().userAgesList(queryClient);
+        stringHighRecommendation = new StringBuilder();
+        stringLowRecommendation = new StringBuilder();
         fillListToExcel(CreateExcelReport.sheet);
     }
 
@@ -42,9 +45,17 @@ public class ExcelUserAge implements FillingExcel {
     public void fillListToExcel(XSSFSheet sheet) {
         String pattern = "##0.00";
         DecimalFormat decimalFormat = new DecimalFormat(pattern);
-        for(int i = 0; i < userAges.size(); i++){
+        int visitALL = 0;
+        int conversationAll = 0;
+        double conversationRateALL = 0.0;
+        for(int i = 0; i < userAges.size(); i++) {
+            visitALL += userAges.get(i).getUserVisited();
+            conversationAll += userAges.get(i).getUserConversation();
+        }
+        conversationRateALL = conversationAll / (double) visitALL;
+        for(int i = 0; i < userAges.size(); i++) {
             Row row = sheet.getRow(i + 1);
-            if(row == null){
+            if (row == null) {
                 row = sheet.createRow(i + 1);
             }
             Cell nameCell = row.createCell(RANGE_AGE_USER);
@@ -55,6 +66,21 @@ public class ExcelUserAge implements FillingExcel {
 
             Cell conversationCell = row.createCell(USER_CONVERSATION);
             conversationCell.setCellValue(userAges.get(i).getUserConversation());
+            if (i + 1 == userAges.size()) {
+                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() * 100 < 0.6) {
+                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ".");
+                }
+                if(userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateALL){
+                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ".");
+                }
+            }else {
+                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() * 100 < 0.6) {
+                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
+                }
+                if(userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateALL){
+                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
+                }
+            }
         }
         //change range for name column
         changeRange(2, userAges.size() + 1, RANGE_AGE_USER_COLUMN, RANGE_AGE_USER_RN);
@@ -63,9 +89,14 @@ public class ExcelUserAge implements FillingExcel {
         //change range for conversation column
         changeRange(2, userAges.size() + 1, USER_CONVERSATION_COLUMN, USER_CONVERSATION_RN);
 
-
         changeCellFromRange(REGION_AGE_LIDER, getFirstRange());
         changeCellFromRange(REGION_AGE_CONVERSATION_LIDER, getBestCoeff());
+
+        String lowRecommendation = "Отключить объявления для возрастных групп: " + stringLowRecommendation.toString();
+        excelRecommendation.setAgeUserLowConversationRecommendation(lowRecommendation);
+
+        String highRecommendation = "Повысить ставки для возрастных групп: " + stringHighRecommendation.toString();
+        excelRecommendation.setAgeUserLowConversationRecommendation(highRecommendation);
     }
 
     private String getFirstRange(){
@@ -103,7 +134,7 @@ public class ExcelUserAge implements FillingExcel {
         if(index == 0 && max == 0.0) {
             return "Нет конверсии";
         }else {
-        return "Лучший коэффициент конверсии у группы " + userAges.get(index).getRangeAgeUser() + " (" + firstSource + "%)";
+            return "Лучший коэффициент конверсии у группы " + userAges.get(index).getRangeAgeUser() + " (" + firstSource + "%)";
         }
     }
 
@@ -126,5 +157,12 @@ public class ExcelUserAge implements FillingExcel {
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+    }
+
+    private void createTextLowRecommendation(String text){
+        stringLowRecommendation.append(text);
+    }
+    private void createTextHighRecommendation(String text){
+        stringHighRecommendation.append(text);
     }
 }

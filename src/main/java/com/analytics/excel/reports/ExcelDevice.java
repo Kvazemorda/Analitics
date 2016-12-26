@@ -43,6 +43,9 @@ public class ExcelDevice implements FillingExcel{
     public void fillListToExcel(XSSFSheet sheet) {
         double deviceVisited = 0.0;
         double tabAndMobilVisited = 0.0;
+        double conversationRateMobile = 0.0;
+        double conversationRatePC = 0.0;
+        double bounceRate = 0.0;
         for (DeviceClient deviceClient: devices){
             deviceVisited += deviceClient.getDeviceQuality();
         }
@@ -52,24 +55,30 @@ public class ExcelDevice implements FillingExcel{
                     changeCellFromRange(PC_VISITED, deviceClient.getDeviceQuality());
                     changeCellFromRange(PC_CONVERSATION, deviceClient.getDeviceConversation());
                     changeCellFromRange(PC_CONVERSATION_PER, (deviceClient.getDeviceQuality() / deviceVisited) * 100);
+                    conversationRatePC += deviceClient.getDeviceQuality() / deviceVisited * 100;
                     break;
                 case "Смартфоны" :
                     changeCellFromRange(TAB_VISITED, deviceClient.getDeviceQuality());
                     changeCellFromRange(TAB_CONVERSATION, deviceClient.getDeviceConversation());
                     changeCellFromRange(TAB_CONVERSATION_PER, (deviceClient.getDeviceQuality()) / deviceVisited * 100);
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
+                    conversationRateMobile += deviceClient.getDeviceQuality() / deviceVisited * 100;
+                    bounceRate += deviceClient.getDeviceBounceRate();
                     break;
                 case "Планшеты":
                     changeCellFromRange(MOBIL_VISITED, deviceClient.getDeviceQuality());
                     changeCellFromRange(MOBIL_CONVERSATION, deviceClient.getDeviceConversation());
                     changeCellFromRange(MOBIL_CONVERSATION_PER, (deviceClient.getDeviceQuality() / deviceVisited) * 100);
                     tabAndMobilVisited += deviceClient.getDeviceQuality();
+                    conversationRateMobile += deviceClient.getDeviceQuality() / deviceVisited * 100;
+                    bounceRate += deviceClient.getDeviceBounceRate();
                     break;
             }
         }
 
         tabAndMobilVisited = (tabAndMobilVisited / deviceVisited) * 100;
         changeCellFromRange(ITEMS_QULITY_PER, getDeviceTraffice(tabAndMobilVisited));
+        setRecommendation(conversationRateMobile, conversationRatePC, bounceRate, new DeviceClientDAO().companyHasMobileAd());
     }
 
     @Override
@@ -123,5 +132,16 @@ public class ExcelDevice implements FillingExcel{
         return "На долю планшетов и смартфонов приходится " +  firstSource + "% трафика";
     }
 
-
+    private void setRecommendation(double conversationRateMobile, double conversationRatePC, double bounceRate, boolean hasMobileAd){
+        String deviceRecommendation = "";
+        if(hasMobileAd){
+            if(conversationRateMobile < conversationRatePC || conversationRateMobile < 0.8 || bounceRate > 30){
+                deviceRecommendation = "Проверить мобильную версию сайта на адаптивность";
+            }else if(conversationRateMobile > conversationRatePC){
+                deviceRecommendation = "Повысить ставки на объявления для мобильных устройств";
+            }
+        }if(!hasMobileAd){
+            deviceRecommendation = "Добавить объявления для мобильных устройств(планшеты и смартфоны)";
+        }
+    }
 }

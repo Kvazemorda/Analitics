@@ -11,6 +11,7 @@ public class Client {
     private String oAuthorID;
     private ArrayList<String> directCompanyID;
     private String oAuthorIDDirect;
+    private String loginDirect;
 
     public Client() {
     }
@@ -45,5 +46,13 @@ public class Client {
 
     public void setoAuthorIDDirect(String oAuthorIDDirect) {
         this.oAuthorIDDirect = oAuthorIDDirect;
+    }
+
+    public String getLoginDirect() {
+        return loginDirect;
+    }
+
+    public void setLoginDirect(String loginDirect) {
+        this.loginDirect = loginDirect;
     }
 }

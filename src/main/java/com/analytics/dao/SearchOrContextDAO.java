@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class StatItemDAO {
+public class SearchOrContextDAO {
 
     public StatItem getSummaryStat(QueryClient queryClient) {
         JSONArray campaingIDS = new JSONArray();
@@ -31,9 +31,9 @@ public class StatItemDAO {
         param.put("CampaignIDS", campaingIDS);
         param.put("StartDate", queryClient.getDate1());
         param.put("EndDate", queryClient.getDate2());
-       // param.put("Currency", "RUB");
-        //param.put("IncludeVAT", "Yes");
-        //param.put("IncludeDiscount", "No");
+        param.put("Currency", "Null");
+        param.put("IncludeVAT", "Yes");
+        param.put("IncludeDiscount", "No");
 
         JSONObject jsonResult = new JSONObject();
         jsonResult.put("method", "GetSummaryStat");
@@ -43,7 +43,6 @@ public class StatItemDAO {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         StatItem statItem = null;
 
-
         try {
             HttpPost request = new HttpPost("https://api.direct.yandex.ru/v4/json/");
             StringEntity params = new StringEntity(jsonResult.toString());
@@ -51,14 +50,9 @@ public class StatItemDAO {
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
             /*Checking response */
-
             String queryString = request.toString();
-
             HttpResponse response = httpClient.execute(request);
-
             String jsonString = EntityUtils.toString(response.getEntity());
-            System.out.println("///////////////////////////////////");
-            System.out.println(jsonString);
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(jsonString);
             ObjectMapper objectMapper = new ObjectMapper();

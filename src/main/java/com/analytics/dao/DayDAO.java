@@ -28,7 +28,6 @@ public class DayDAO {
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();
         SourceVisitedFromYaByTime sourceVisitedFromYaByTime = restTemplate.getForObject(url2, SourceVisitedFromYaByTime.class);
-        System.out.println(sourceVisitedFromYaByTime);
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
         for(int j = 0; j < sourceVisitedFromYaByTime.getTime_intervals().size(); j++){
 

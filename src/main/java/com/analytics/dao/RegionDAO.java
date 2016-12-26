@@ -42,7 +42,6 @@ public class RegionDAO {
                 metric += metricNext;
             }
             list.add(new Region(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + metric + " " + conversation);
         }
 
         return list;

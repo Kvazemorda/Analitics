@@ -22,6 +22,7 @@ public class DeviceClientDAO {
                 .queryParam("accuracy", "full")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
+                .queryParam("metrics", "ym:s:bounceRate")
                 .queryParam("dimensions", "ym:s:deviceCategory")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
@@ -34,6 +35,7 @@ public class DeviceClientDAO {
         for(int j = 0; j < dimensionDatas.size(); j++){
             Double metric = 0.0;
             Double conversation = 0.0;
+            Double bounceRate = 0.0;
             ArrayList<ArrayList<Double>> metrics = dimensionDatas.get(j).getMetrics();
             for(Double conversationNext: metrics.get(0)) {
                 conversation += conversationNext;
@@ -41,9 +43,17 @@ public class DeviceClientDAO {
             for(Double metricNext: metrics.get(1)) {
                 metric += metricNext;
             }
-            list.add(new DeviceClient(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
+            for(Double bounce: metrics.get(2)) {
+                bounceRate += bounce;
+            }
+            bounceRate = (bounceRate / metric) * 100;
+            list.add(new DeviceClient(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation, bounceRate));
         }
 
         return list;
+    }
+
+    public boolean companyHasMobileAd(){
+        return false;
     }
 }

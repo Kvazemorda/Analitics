@@ -51,7 +51,6 @@ public class WeekDAO {
             TreeSet<Week> set = new TreeSet<>();
             set.add(new Week(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
             list.addAll(set);
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + metric + " " + conversation);
         }
 
         return list;

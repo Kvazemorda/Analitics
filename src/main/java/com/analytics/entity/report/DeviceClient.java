@@ -4,11 +4,14 @@ public class DeviceClient {
     private String deviceName;
     private double deviceQuality;
     private double deviceConversation;
+    private double deviceBounceRate;
+    
 
-    public DeviceClient(String deviceName, double deviceQuality, double deviceConversation) {
+    public DeviceClient(String deviceName, double deviceQuality, double deviceConversation, double deviceBounceRate) {
         this.deviceName = deviceName;
         this.deviceQuality = deviceQuality;
         this.deviceConversation = deviceConversation;
+        this.deviceBounceRate = deviceBounceRate;
     }
 
     public String getDeviceName() {
@@ -33,5 +36,13 @@ public class DeviceClient {
 
     public void setDeviceConversation(double deviceConversation) {
         this.deviceConversation = deviceConversation;
+    }
+
+    public double getDeviceBounceRate() {
+        return deviceBounceRate;
+    }
+
+    public void setDeviceBounceRate(double deviceBounceRate) {
+        this.deviceBounceRate = deviceBounceRate;
     }
 }

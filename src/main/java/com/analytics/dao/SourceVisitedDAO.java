@@ -49,7 +49,6 @@ public class SourceVisitedDAO {
                 metric += metricNext;
             }
             list.add(new SourceVisited(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + metric + " " + conversation);
         }
 
         return list;

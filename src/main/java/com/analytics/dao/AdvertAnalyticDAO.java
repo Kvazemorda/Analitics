@@ -14,15 +14,13 @@ public class AdvertAnalyticDAO {
         ArrayList<AdvertAnalyticDAO> list = new ArrayList<>();
         URI url2 = UriComponentsBuilder.fromUriString("https://api-metrika.yandex.ru/stat/v1/data/")
                 .path("bytime")
-                .queryParam("direct_client_logins", "direct.exel")
+                .queryParam("direct_client_logins", queryClient.getClient().getLoginDirect())
                 .queryParam("date1", queryClient.getDate1())
                 .queryParam("date2", queryClient.getDate2())
                 .queryParam("group", "month")
                 .queryParam("accuracy", "full")
-                .queryParam("dimensions", "ym:ad:directBanner")
-                .queryParam("metrics", "ym:ad:clicks")
-                .queryParam("metrics", "ym:ad:goal<goal_id><currency>AdCostPerVisit")
-                .queryParam("goal_id", "22297850")
+                .queryParam("dimensions", "ym:ad:directPlatformType")
+                .queryParam("metrics", "ym:ad:<currency>AdCost")
                 .queryParam("currency", "RUB")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
@@ -30,10 +28,9 @@ public class AdvertAnalyticDAO {
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();
         SourceVisitedFromYaByTime sourceVisitedFromYaByTime = restTemplate.getForObject(url2, SourceVisitedFromYaByTime.class);
-        System.out.println(sourceVisitedFromYaByTime);
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
-        for(int j = 0; j < sourceVisitedFromYaByTime.getTime_intervals().size(); j++){
-
+        for(int j = 0; j < dimensionDatas.size(); j++){
+            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getId() + " " + dimensionDatas.get(j).getDimensions().get(0).getName() + " " + dimensionDatas.get(j).getMetrics().get(0));
         }
 
         return list;

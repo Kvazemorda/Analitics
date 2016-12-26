@@ -1,7 +1,7 @@
 package com.analytics.excel.reports;
 
 import com.analytics.client.QueryClient;
-import com.analytics.dao.StatItemDAO;
+import com.analytics.dao.SearchOrContextDAO;
 import com.analytics.entity.response.ya.data.direct.StatItem;
 import com.analytics.excel.ConfigExcel;
 import com.analytics.excel.CreateExcelReport;
@@ -43,7 +43,7 @@ public class ExcelSearchOrContext implements FillingExcel{
     public ExcelSearchOrContext(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         decimalFormat = new DecimalFormat("##0.00");
         this.excelRecommendation = excelRecommendation;
-        statItem = new StatItemDAO().getSummaryStat(queryClient);
+        statItem = new SearchOrContextDAO().getSummaryStat(queryClient);
         double contextCost = statItem.getClicksContext() * statItem.getSumContext();
         double searchCost = statItem.getClicksSearch() * statItem.getSumSearch();
         double searchCtr = (statItem.getClicksSearch() / (double)statItem.getShowsSearch()) * 100;

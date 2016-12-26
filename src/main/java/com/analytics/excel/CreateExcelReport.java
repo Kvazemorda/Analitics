@@ -26,6 +26,7 @@ public class CreateExcelReport {
     public CreateExcelReport(QueryClient queryClient) {
         InputStream inputStream = null;
         book = null;
+        excelRecommendation = new ExcelRecommendation();
         this.queryClient = queryClient;
         try {
             //create Excel book
@@ -59,6 +60,7 @@ public class CreateExcelReport {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
     private void clearSheet(){
