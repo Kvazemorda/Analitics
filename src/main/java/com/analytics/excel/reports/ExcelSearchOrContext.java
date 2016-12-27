@@ -44,30 +44,31 @@ public class ExcelSearchOrContext implements FillingExcel{
         decimalFormat = new DecimalFormat("##0.00");
         this.excelRecommendation = excelRecommendation;
         statItem = new SearchOrContextDAO().getSummaryStat(queryClient);
-        double contextCost = statItem.getClicksContext() * statItem.getSumContext();
-        double searchCost = statItem.getClicksSearch() * statItem.getSumSearch();
-        double searchCtr = (statItem.getClicksSearch() / (double)statItem.getShowsSearch()) * 100;
-        double contextCtr = (statItem.getClicksContext() / (double) statItem.getShowsSearch()) * 100;
+        double contextCost = statItem.getCostContext();
+        double searchCost = statItem.getCostSearch();
+        double searchCtr = (statItem.getClicksSearch() / (double) statItem.getShowsSearch()) * 100;
+        double contextCtr = (statItem.getClicksContext() / (double) statItem.getShowsContext()) * 100;
 
-        changeCellFromRange(YA_FIND_COST, searchCost);
-        changeCellFromRange(YA_NET_COST, contextCost);
+        changeCellFromRange(YA_FIND_COST, statItem.getSumSearch());
+        changeCellFromRange(YA_NET_COST, statItem.getSumContext()) ;
         changeCellFromRange(YA_FIND_SHOW, statItem.getShowsSearch());
         changeCellFromRange(YA_NET_SHOW, statItem.getShowsContext());
         changeCellFromRange(YA_FIND_CLICK, statItem.getClicksSearch());
         changeCellFromRange(YA_NET_CLICK, statItem.getClicksContext());
-        changeCellFromRange(YA_FIND_CTR, searchCtr + "%");
-        changeCellFromRange(YA_NET_CTR, contextCtr + "%");
-        changeCellFromRange(YA_FIND_AVR_COST_CLICK, statItem.getSumSearch());
-        changeCellFromRange(YA_NET_AVR_COST_CLICK, String.valueOf(statItem.getSumContext()));
-        changeCellFromRange(YA_FIND_CONVERSATION, decimalFormat.format(statItem.getGoalConversionSearch()) + "%");
-        changeCellFromRange(YA_NET_CONVERSATION, decimalFormat.format(statItem.getGoalConversionContext()) + "%");
+        changeCellFromRange(YA_FIND_CTR, searchCtr);
+        changeCellFromRange(YA_NET_CTR, contextCtr);
+        changeCellFromRange(YA_FIND_AVR_COST_CLICK, searchCost);
+        changeCellFromRange(YA_NET_AVR_COST_CLICK, contextCost);
+        changeCellFromRange(YA_FIND_CONVERSATION, (statItem.getGoalSearch() / (double) statItem.getClicksSearch()) * 100);
+        changeCellFromRange(YA_NET_CONVERSATION, (statItem.getGoalContext() / (double) statItem.getClicksContext()) * 100);
         changeCellFromRange(YA_FIND_COST_GOAL, statItem.getGoalCostSearch());
         changeCellFromRange(YA_NET_COST_GOAL, statItem.getGoalCostContext());
-        changeCellFromRange(YA_FIND_GET_GOAL, statItem.getGoalConversionSearch());
-        changeCellFromRange(YA_NET_GET_GOAL, statItem.getGoalConversionContext());
-        changeCellFromRange(COST, contextCost + searchCost);
-        changeCellFromRange(COUNT_ADVERT, statItem.getShowsContext() + statItem.getShowsSearch());
-        changeCellFromRange(AVR_COST_OF_ADVERT, (contextCost + searchCost) / (statItem.getShowsContext() + statItem.getShowsSearch()));
+        changeCellFromRange(YA_FIND_GET_GOAL, statItem.getGoalSearch());
+        changeCellFromRange(YA_NET_GET_GOAL, statItem.getGoalContext());
+        changeCellFromRange(COST, statItem.getSumContext() + statItem.getSumSearch());
+        changeCellFromRange(COUNT_ADVERT, statItem.getGoalSearch() + statItem.getGoalContext());
+        changeCellFromRange(AVR_COST_OF_ADVERT,(statItem.getSumContext() + statItem.getSumSearch()) /
+                (statItem.getGoalSearch() + statItem.getGoalContext()));
     }
 
     @Override

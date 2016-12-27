@@ -23,6 +23,9 @@ public class StatItem implements Serializable{
     private float GoalCostContext;
     private float CostSearch;
     private float CostContext;
+    private int GoalSearch;
+    private int GoalContext;
+
 
     public StatItem() {
     }
@@ -177,7 +180,7 @@ public class StatItem implements Serializable{
 
     @Override
     public String toString() {
-        return "GetSummaryStat{" +
+        return "StatItem{" +
                 "CampaignID=" + CampaignID +
                 ", StatDate=" + StatDate +
                 ", SumSearch=" + SumSearch +
@@ -192,6 +195,26 @@ public class StatItem implements Serializable{
                 ", GoalConversionContext=" + GoalConversionContext +
                 ", GoalCostSearch=" + GoalCostSearch +
                 ", GoalCostContext=" + GoalCostContext +
+                ", CostSearch=" + CostSearch +
+                ", CostContext=" + CostContext +
+                ", GoalSearch=" + GoalSearch +
+                ", GoalContext=" + GoalContext +
                 '}';
+    }
+
+    public int getGoalSearch() {
+        return GoalSearch;
+    }
+
+    public void setGoalSearch(int goalSearch) {
+        GoalSearch = goalSearch;
+    }
+
+    public int getGoalContext() {
+        return GoalContext;
+    }
+
+    public void setGoalContext(int goalContext) {
+        GoalContext = goalContext;
     }
 }

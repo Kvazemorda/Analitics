@@ -40,13 +40,14 @@ public class ExcelSourceDetail implements FillingExcel {
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
+        System.out.println(sourceDetailList.size() + " ///////////////////////////////");
         for(int i = 0; i < sourceDetailList.size(); i++){
             Row row = sheet.getRow(i + 1);
             if(row == null){
                 row = sheet.createRow(i + 1);
             }
             Cell cellSource = row.createCell(SOURCE_DETAIL_CELL);
-            String conversation = decimalFormat.format(sourceDetailList.get(i).getConversationDetail());
+            String conversation = decimalFormat.format((sourceDetailList.get(i).getConversationDetail() / sourceDetailList.get(i).getCountVisited()) * 100);
             cellSource.setCellValue(sourceDetailList.get(i).getSourceDetail()+ " (" + conversation
             + ")");
             Cell cellQuality = row.createCell(QUALITY_DETAIL_CELL);
@@ -74,7 +75,12 @@ public class ExcelSourceDetail implements FillingExcel {
         CellReference[] cells = aref.getAllReferencedCells();
         Cell c = null;
         Sheet s = CreateExcelReport.book.getSheet(cells[0].getSheetName());
-        Row r =  s.createRow(cells[0].getRow());
+        Row r = null;
+        if(s.getRow(cells[0].getRow()) == null){
+            r =  s.createRow(cells[0].getRow());
+        }else {
+            r =  s.getRow(cells[0].getRow());
+        }
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
         c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
@@ -101,12 +107,12 @@ public class ExcelSourceDetail implements FillingExcel {
         double max = 0.0;
         int index = 0;
         for(int i = 0; i < sourceDetailList.size(); i++){
-            if(max < sourceDetailList.get(i).getConversationDetail()){
-                max = sourceDetailList.get(i).getConversationDetail();
+            if(max < sourceDetailList.get(i).getConversationDetail() / sourceDetailList.get(i).getCountVisited()){
+                max = sourceDetailList.get(i).getConversationDetail() / sourceDetailList.get(i).getCountVisited();
                 index = i;
             }
         }
-        String firstQuality = decimalFormat.format(max);
+        String firstQuality = decimalFormat.format(max * 100);
         if(max == 0){
             return "Нет конверсий по источникам";
         }

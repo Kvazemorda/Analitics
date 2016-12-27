@@ -18,7 +18,7 @@ public class GoalDAO {
                 .path("bytime")
                 .queryParam("date1", queryClient.getDate1())
                 .queryParam("date2", queryClient.getDate2())
-                .queryParam("group", "year")
+                .queryParam("group", "month")
                 .queryParam("accuracy", "full")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("dimensions", "ym:s:goal")
