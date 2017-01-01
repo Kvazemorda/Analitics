@@ -80,15 +80,15 @@ public class SearchOrContextDAO {
             statItem.setSumContext((float) costContextByPeriod);
             statItem.setSumSearch((float) costSearchByPeriod);
             getGoalByContext(queryClient);
-        } catch (Exception ex) {
-            System.out.println(ex);
-        } finally {
-            try {
-                httpClient.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception ex) {
+                System.out.println(ex);
+            } finally {
+                try {
+                    httpClient.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
 
         return statItem;
     }

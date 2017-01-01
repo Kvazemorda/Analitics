@@ -10,6 +10,7 @@ public class Client {
     private String metricsID;
     private String oAuthorID;
     private ArrayList<String> directCompanyID;
+    private ArrayList<String> directCompanyName;
     private String oAuthorIDDirect;
     private String loginDirect;
 
@@ -54,5 +55,13 @@ public class Client {
 
     public void setLoginDirect(String loginDirect) {
         this.loginDirect = loginDirect;
+    }
+
+    public ArrayList<String> getDirectCompanyName() {
+        return directCompanyName;
+    }
+
+    public void setDirectCompanyName(ArrayList<String> directCompanyName) {
+        this.directCompanyName = directCompanyName;
     }
 }

@@ -2,6 +2,7 @@ package com.analytics.excel;
 
 import com.analytics.client.Client;
 import com.analytics.client.QueryClient;
+import com.analytics.dao.BannerStatItemDAO;
 
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class Main {
         client.setMetricsID("33661869");
         client.setoAuthorID("AQAAAAAX4cvvAAOfZ6owq72SMETPiz7NAAIik7Q");
         client.setDirectCompanyID(new ArrayList<>());
+        client.setDirectCompanyName(new ArrayList<>());
+        /*
         client.getDirectCompanyID().add("20255884");
         client.getDirectCompanyID().add("21265071");
         client.getDirectCompanyID().add("21265077");
@@ -34,14 +37,17 @@ public class Main {
         client.getDirectCompanyID().add("22018753");
         client.getDirectCompanyID().add("22037246");
         client.getDirectCompanyID().add("22325876");
-        client.getDirectCompanyID().add("23139450");
+        client.getDirectCompanyID().add("23139450");*/
         client.setoAuthorIDDirect("AQAAAAAX4cvvAAPC2-tQJOpLaEY8vk_70YJuZ_U");
         client.setLoginDirect("AristokratDirect");
-        QueryClient queryClient = new QueryClient("2016-11-23", "2016-12-23", client, 250);
+        QueryClient queryClient = new QueryClient("2016-11-30", "2016-11-30", client, 250);
 
-        CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
 
-    }
+        BannerStatItemDAO bannerStatItemDAO = new BannerStatItemDAO();
+        bannerStatItemDAO.getCompanyName(queryClient);
+        bannerStatItemDAO.getConversationOfBanner(queryClient);
+        //CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
 
+}
 
 }

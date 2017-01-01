@@ -38,6 +38,7 @@ public class SourceVisitedDAO {
 
 
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
+        System.out.println(dimensionDatas.size());
         for(int j = 0; j < dimensionDatas.size(); j++){
             Double metric = 0.0;
             Double conversation = 0.0;

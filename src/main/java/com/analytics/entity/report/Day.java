@@ -1,18 +1,24 @@
 package com.analytics.entity.report;
 
 public class Day {
-    int hoursOfDay;
+    String hoursOfDay;
     int hoursOfDayVisited;
     int hoursOfDayConversation;
 
     public Day() {
     }
 
-    public int getHoursOfDay() {
+    public Day(String hoursOfDay, int hoursOfDayVisited, int hoursOfDayConversation) {
+        this.hoursOfDay = hoursOfDay;
+        this.hoursOfDayVisited = hoursOfDayVisited;
+        this.hoursOfDayConversation = hoursOfDayConversation;
+    }
+
+    public String getHoursOfDay() {
         return hoursOfDay;
     }
 
-    public void setHoursOfDay(int hoursOfDay) {
+    public void setHoursOfDay(String hoursOfDay) {
         this.hoursOfDay = hoursOfDay;
     }
 

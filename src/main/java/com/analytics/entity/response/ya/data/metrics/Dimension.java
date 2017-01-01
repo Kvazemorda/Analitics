@@ -8,6 +8,7 @@ public class Dimension {
     private String icon_id;
     private String icon_type;
     private String id;
+    private String direct_id;
 
     public Dimension() {
     }
@@ -42,6 +43,14 @@ public class Dimension {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getDirect_id() {
+        return direct_id;
+    }
+
+    public void setDirect_id(String direct_id) {
+        this.direct_id = direct_id;
     }
 
     @Override
