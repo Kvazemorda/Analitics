@@ -23,6 +23,7 @@ public class ExcelFunnel implements FillingExcel {
     public static String COUNT_GET_GOALS = "countGetGoals";
     public static String RATIO_CONVERSATION = "effecientConversation";
     public static String CPA_COST = "CpaCost";
+    public static double costOneConversation;
     private ExcelRecommendation excelRecommendation;
 
 
@@ -34,6 +35,7 @@ public class ExcelFunnel implements FillingExcel {
         DecimalFormat decimalFormat1 = new DecimalFormat("##0.00");
         String cpaCost = decimalFormat1.format(funnel.getCpaCost());
         String spendALL = decimalFormat1.format(funnel.getSpendAll());
+        costOneConversation = funnel.getSpendAll() / funnel.getQualityGetGoals();
 
         changeCellFromRange(QUALITY_SHOW_ADVERT, String.valueOf(funnel.getQualityShowAdvert()));
         changeCellFromRange(QUALITY_CLICK, String.valueOf(funnel.getQualityClick()));

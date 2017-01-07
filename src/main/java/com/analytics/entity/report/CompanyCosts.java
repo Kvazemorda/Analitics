@@ -5,7 +5,7 @@ public class CompanyCosts implements Comparable {
     private String ad;
     private int click;
     private int position;
-    private int conversation;
+    private double conversation;
     private double conversationRate;
     private double costs;
     private double ctr;
@@ -14,7 +14,7 @@ public class CompanyCosts implements Comparable {
     public CompanyCosts() {
     }
 
-    public CompanyCosts(String company, String ad, int click, int position, int conversation, double conversationRate, double costs, double ctr, double costOneConversation) {
+    public CompanyCosts(String company, String ad, int click, int position, double conversation, double conversationRate, double costs, double ctr, double costOneConversation) {
         this.company = company;
         this.ad = ad;
         this.click = click;
@@ -58,11 +58,11 @@ public class CompanyCosts implements Comparable {
         this.position = position;
     }
 
-    public int getConversation() {
+    public double getConversation() {
         return conversation;
     }
 
-    public void setConversation(int conversation) {
+    public void setConversation(double conversation) {
         this.conversation = conversation;
     }
 
@@ -130,6 +130,32 @@ public class CompanyCosts implements Comparable {
                 ", costs=" + costs +
                 ", ctr=" + ctr +
                 ", costOneConversation=" + costOneConversation +
-                '}';
+                '}' + "\n" ;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CompanyCosts that = (CompanyCosts) o;
+
+        if (click != that.click) return false;
+        if (position != that.position) return false;
+        if (conversation != that.conversation) return false;
+        if (Double.compare(that.conversationRate, conversationRate) != 0) return false;
+        if (Double.compare(that.costs, costs) != 0) return false;
+        if (Double.compare(that.ctr, ctr) != 0) return false;
+        if (Double.compare(that.costOneConversation, costOneConversation) != 0) return false;
+        if (company != null ? !company.equals(that.company) : that.company != null) return false;
+        return ad != null ? ad.equals(that.ad) : that.ad == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = company != null ? company.hashCode() : 0;
+        result = 31 * result + (ad != null ? ad.hashCode() : 0);
+        return result;
     }
 }

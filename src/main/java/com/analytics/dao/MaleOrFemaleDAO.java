@@ -24,6 +24,7 @@ public class MaleOrFemaleDAO {
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:gender")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
+                .queryParam("top_keys", "30")
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
                 .toUri();

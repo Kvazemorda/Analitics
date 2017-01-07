@@ -23,16 +23,15 @@ public class Main {
        //Aristokrat
         client.setMetricsID("33661869");
         client.setoAuthorID("AQAAAAAX4cvvAAOfZ6owq72SMETPiz7NAAIik7Q");
-        client.setDirectCompanyID(new ArrayList<>());
-        client.setDirectCompanyName(new ArrayList<>());
-        /*
-        client.getDirectCompanyID().add("20255884");
+        client.setCompanyDirect(new ArrayList<>());
+
+        /*client.getDirectCompanyID().add("20255884");
         client.getDirectCompanyID().add("21265071");
         client.getDirectCompanyID().add("21265077");
         client.getDirectCompanyID().add("21808774");
-        client.getDirectCompanyID().add("21878625");
-        client.getDirectCompanyID().add("21879001");
-        client.getDirectCompanyID().add("21984478");
+        client.getDirectCompanyID().add("21878625");*/
+        //client.getCompanyDirect().add(new CompanyDirect("21879001", "Банкротство для кредиторов РСЯ 29.09.16"));
+        /*client.getDirectCompanyID().add("21984478");
         client.getDirectCompanyID().add("22015078");
         client.getDirectCompanyID().add("22018753");
         client.getDirectCompanyID().add("22037246");
@@ -40,13 +39,11 @@ public class Main {
         client.getDirectCompanyID().add("23139450");*/
         client.setoAuthorIDDirect("AQAAAAAX4cvvAAPC2-tQJOpLaEY8vk_70YJuZ_U");
         client.setLoginDirect("AristokratDirect");
-        QueryClient queryClient = new QueryClient("2016-11-30", "2016-11-30", client, 250);
-
+        QueryClient queryClient = new QueryClient("2016-11-30", "2016-12-30", client, 70);
 
         BannerStatItemDAO bannerStatItemDAO = new BannerStatItemDAO();
         bannerStatItemDAO.getCompanyName(queryClient);
-        bannerStatItemDAO.getConversationOfBanner(queryClient);
-        //CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
+        CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
 
 }
 

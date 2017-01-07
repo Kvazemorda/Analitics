@@ -22,6 +22,7 @@ public class GoalDAO {
                 .queryParam("accuracy", "full")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("dimensions", "ym:s:goal")
+                .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
@@ -37,7 +38,6 @@ public class GoalDAO {
                     conversation += metrics.get(0).get(i);
             }
                 list.add(new Goal(dimensionDatas.get(j).getDimensions().get(0).getName(), conversation));
-                System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName() + " " + dimensionDatas.get(j).getDimensions().get(0).getId());
         }
         return list;
     }

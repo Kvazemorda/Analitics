@@ -1,7 +1,6 @@
 package com.analytics.dao;
 
 import com.analytics.client.QueryClient;
-import com.analytics.entity.response.ya.data.metrics.DimensionData;
 import com.analytics.entity.response.ya.data.metrics.SourceVisitedFromYaByTime;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -22,17 +21,13 @@ public class AdvertAnalyticDAO {
                 .queryParam("dimensions", "ym:ad:directPlatformType")
                 .queryParam("metrics", "ym:ad:<currency>AdCost")
                 .queryParam("currency", "RUB")
+                .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();
         SourceVisitedFromYaByTime sourceVisitedFromYaByTime = restTemplate.getForObject(url2, SourceVisitedFromYaByTime.class);
-        ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
-        for(int j = 0; j < dimensionDatas.size(); j++){
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getId() + " " + dimensionDatas.get(j).getDimensions().get(0).getName() + " " + dimensionDatas.get(j).getMetrics().get(0));
-        }
-
         return list;
     }
 }

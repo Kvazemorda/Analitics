@@ -11,11 +11,6 @@ import java.net.URI;
 import java.util.ArrayList;
 
 public class SourceVisitedDAO {
-    //String url = "https://api-metrika.yandex.ru/stat/v1/data/bytime?date1=2016-10-28&date2=2016-11-27&group=month&dimensions=ym:s:<attribution>TrafficSource&attribution=last&ids=38437860&metrics=ym:s:visits&oauth_token=AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-    String url = "https://api-metrika.yandex.ru/stat/v1/data/" +
-            "bytime?" +
-            "date1=2016-10-28&date2=2016-11-27&group=year&metrics=ym:s:anyGoalConversionRate&dimensions=ym:s:<attribution>TrafficSource&attribution=last&ids=38437860&metrics=ym:s:visits&oauth_token=AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-
 
     public ArrayList<SourceVisited> getSourceVisited(QueryClient queryClient){
         ArrayList<SourceVisited> list = new ArrayList<>();
@@ -29,16 +24,14 @@ public class SourceVisitedDAO {
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:<attribution>TrafficSource")
                 .queryParam("attribution", "last")
+                .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();
         SourceVisitedFromYaByTime sourceVisitedFromYaByTime = restTemplate.getForObject(url2, SourceVisitedFromYaByTime.class);
-
-
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
-        System.out.println(dimensionDatas.size());
         for(int j = 0; j < dimensionDatas.size(); j++){
             Double metric = 0.0;
             Double conversation = 0.0;

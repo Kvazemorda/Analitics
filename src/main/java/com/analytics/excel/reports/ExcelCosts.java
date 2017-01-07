@@ -82,8 +82,8 @@ public class ExcelCosts implements FillingExcel {
                 keyWithoutConversation++;
                 costWithoutConversation += costCompany.get(i).getCosts();
             }
-
-            int conversation = costCompany.get(i).getConversation();
+            row.setHeight((short) 630);
+            double conversation = costCompany.get(i).getConversation();
             Cell cellCompany = row.createCell(COMPANY_CELL);
             sheet.addMergedRegion(new CellRangeAddress(row.getRowNum(),row.getRowNum(),COMPANY_CELL, AD_CELL - 1));
             cellCompany.setCellValue(costCompany.get(i).getCompany());
@@ -140,7 +140,7 @@ public class ExcelCosts implements FillingExcel {
 
     }
 
-    private CellStyle getStyle(int rowNumber, int conversation, double cost){
+    private CellStyle getStyle(int rowNumber, double conversation, double cost){
         CellStyle cellStyle = null;
         if(conversation == 0){
             if(rowNumber % 2 != 0){

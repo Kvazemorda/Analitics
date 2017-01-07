@@ -3,6 +3,7 @@ package com.analytics.dao;
 import com.analytics.client.QueryClient;
 import com.analytics.entity.response.ya.data.direct.Data;
 import com.analytics.entity.response.ya.data.direct.StatItem;
+import com.analytics.entity.response.ya.data.direct.banner.CompanyDirect;
 import com.analytics.entity.response.ya.data.metrics.DimensionData;
 import com.analytics.entity.response.ya.data.metrics.SourceVisitedFromYaByTime;
 import com.google.gson.Gson;
@@ -25,8 +26,8 @@ public class SearchOrContextDAO {
     private StatItem statItem = null;
     public StatItem getSummaryStat(QueryClient queryClient) {
         JSONArray campaingIDS = new JSONArray();
-        for (String campanyID : queryClient.getClient().getDirectCompanyID()) {
-            campaingIDS.add(campanyID);
+        for(CompanyDirect companyDirect: queryClient.getClient().getCompanyDirect()){
+            campaingIDS.add(companyDirect.getCompanyID());
         }
         JSONObject param = new JSONObject();
         param.put("CampaignIDS", campaingIDS);
@@ -113,9 +114,7 @@ public class SearchOrContextDAO {
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
 
         for(int j = 0; j < dimensionDatas.size(); j++){
-            System.out.println("/////////////////////////////");
             int conversation = 0;
-            System.out.println(dimensionDatas.get(j).getDimensions().get(0).getName());
             if(dimensionDatas.get(j).getDimensions().get(0).getName().equals("Контекст")) {
                 for (int i = 0; i < dimensionDatas.get(j).getMetrics().get(0).size(); i++) {
                     conversation += dimensionDatas.get(j).getMetrics().get(0).get(i);

@@ -1,12 +1,10 @@
 package com.analytics.entity.response.ya.data.direct.banner;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import java.util.Date;
 @JsonIgnoreProperties(ignoreUnknown = false)
 public class BannersStatItem {
 
-    private Date StatDate;
+    private String StatDate;
     private long BannerID;
     private long PhraseID;
     private int RubricID;
@@ -33,7 +31,7 @@ public class BannersStatItem {
     public BannersStatItem() {
     }
 
-    public BannersStatItem(Date statDate, long bannerID, long phraseID, int rubricID, int retargetingID, int webpageID,
+    public BannersStatItem(String statDate, long bannerID, long phraseID, int rubricID, int retargetingID, int webpageID,
                            String phrase, float sum, float sumSearch, float sumContext, int clicks, int clicksSearch,
                            int clicksContext, int shows, int showsSearch, int showsContext, String statType,
                            String deviceType, float showsAveragePosition, float clicksAveragePosition,
@@ -62,11 +60,11 @@ public class BannersStatItem {
         this.ROI = ROI;
     }
 
-    public Date getStatDate() {
+    public String getStatDate() {
         return StatDate;
     }
 
-    public void setStatDate(Date statDate) {
+    public void setStatDate(String statDate) {
         StatDate = statDate;
     }
 
@@ -247,30 +245,52 @@ public class BannersStatItem {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BannersStatItem that = (BannersStatItem) o;
+
+        if (BannerID != that.BannerID) return false;
+        if (PhraseID != that.PhraseID) return false;
+        if (RubricID != that.RubricID) return false;
+        if (RetargetingID != that.RetargetingID) return false;
+        if (WebpageID != that.WebpageID) return false;
+        if (Float.compare(that.Sum, Sum) != 0) return false;
+        if (Float.compare(that.SumSearch, SumSearch) != 0) return false;
+        if (Float.compare(that.SumContext, SumContext) != 0) return false;
+        if (Clicks != that.Clicks) return false;
+        if (ClicksSearch != that.ClicksSearch) return false;
+        if (ClicksContext != that.ClicksContext) return false;
+        if (Shows != that.Shows) return false;
+        if (ShowsSearch != that.ShowsSearch) return false;
+        if (ShowsContext != that.ShowsContext) return false;
+        if (Float.compare(that.ShowsAveragePosition, ShowsAveragePosition) != 0) return false;
+        if (Float.compare(that.ClicksAveragePosition, ClicksAveragePosition) != 0) return false;
+        if (Float.compare(that.Revenue, Revenue) != 0) return false;
+        if (Float.compare(that.ROI, ROI) != 0) return false;
+        if (StatDate != null ? !StatDate.equals(that.StatDate) : that.StatDate != null) return false;
+        if (Phrase != null ? !Phrase.equals(that.Phrase) : that.Phrase != null) return false;
+        if (StatType != null ? !StatType.equals(that.StatType) : that.StatType != null) return false;
+        if (DeviceType != null ? !DeviceType.equals(that.DeviceType) : that.DeviceType != null) return false;
+        return companyName != null ? companyName.equals(that.companyName) : that.companyName == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = Phrase != null ? Phrase.hashCode() : 0;
+        result = 31 * result + (companyName != null ? companyName.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString() {
         return "BannersStatItem{" +
-                "StatDate=" + StatDate +
-                ", BannerID=" + BannerID +
-                ", PhraseID=" + PhraseID +
-                ", RubricID=" + RubricID +
-                ", RetargetingID=" + RetargetingID +
-                ", WebpageID=" + WebpageID +
-                ", Phrase='" + Phrase + '\'' +
+                "Phrase='" + Phrase + '\'' +
                 ", Sum=" + Sum +
-                ", SumSearch=" + SumSearch +
-                ", SumContext=" + SumContext +
                 ", Clicks=" + Clicks +
-                ", ClicksSearch=" + ClicksSearch +
-                ", ClicksContext=" + ClicksContext +
-                ", Shows=" + Shows +
-                ", ShowsSearch=" + ShowsSearch +
-                ", ShowsContext=" + ShowsContext +
-                ", StatType='" + StatType + '\'' +
-                ", DeviceType='" + DeviceType + '\'' +
-                ", ShowsAveragePosition=" + ShowsAveragePosition +
-                ", ClicksAveragePosition=" + ClicksAveragePosition +
-                ", Revenue=" + Revenue +
-                ", ROI=" + ROI +
-                '}';
+                ", Date=" + StatDate +
+                '}' + " \n";
     }
 }

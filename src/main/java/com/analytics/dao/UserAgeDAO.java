@@ -23,6 +23,7 @@ public class UserAgeDAO {
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:ageInterval")
+                .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()

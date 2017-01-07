@@ -69,6 +69,7 @@ public class ExcelSearchOrContext implements FillingExcel{
         changeCellFromRange(COUNT_ADVERT, statItem.getGoalSearch() + statItem.getGoalContext());
         changeCellFromRange(AVR_COST_OF_ADVERT,(statItem.getSumContext() + statItem.getSumSearch()) /
                 (statItem.getGoalSearch() + statItem.getGoalContext()));
+        excelRecommendation.setSearchOrContext(getRecommendation(statItem.getSumContext(), statItem.getSumSearch()));
     }
 
     @Override
@@ -116,5 +117,14 @@ public class ExcelSearchOrContext implements FillingExcel{
         } else {
             c.setCellStyle(ConfigExcel.STYLE_SEARCH_CONTEXT_SIMPLE);
         }
+    }
+    public String getRecommendation(double contextCostOne, double findCostOne){
+        String recommendation = "";
+        if(contextCostOne < findCostOne){
+            recommendation = "Увеличить бюджет на РСЯ и сократить на поиске";
+        }else if(contextCostOne > findCostOne) {
+            recommendation = "Увеличить бюджет на поиске и сократить на РСЯ";
+        }
+        return recommendation;
     }
 }

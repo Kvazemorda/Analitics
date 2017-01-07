@@ -26,6 +26,7 @@ public class DynamicConversationDAO {
                 .queryParam("dimensions", "ym:s:date")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
+                .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()

@@ -25,6 +25,7 @@ public class DeviceClientDAO {
                 .queryParam("metrics", "ym:s:bounceRate")
                 .queryParam("dimensions", "ym:s:deviceCategory")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
+                .queryParam("top_keys", "30")
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
                 .toUri();

@@ -25,6 +25,7 @@ public class WeekDAO {
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:dayOfWeek")
+                .queryParam("top_keys", "7")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()

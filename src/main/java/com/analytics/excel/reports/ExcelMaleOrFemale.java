@@ -81,17 +81,17 @@ public class ExcelMaleOrFemale implements FillingExcel {
         }else{
             changeCellFromRange(WHO_MORE_ON_SITE, "На сайте больше женщин");
         }
-        if(maleConversation > femaleConversation){
+        double maleConversationPer = (maleConversation / maleVisited)*100;
+        double femaleConversationPer = (femaleConversation / femaleVisited)*100;
+
+        if(maleConversationPer > femaleConversationPer){
             changeCellFromRange(WHICH_CONVERSATION_MORE, "Коэф. конверсии выше у мужчин");
         }else {
             changeCellFromRange(WHICH_CONVERSATION_MORE, "Коэф. конверсии выше у женщин");
         }
-        double maleConversationPer = (maleConversation / maleVisited)*100;
-        double femaleConversationPer = (femaleConversation / femaleVisited)*100;
-
         changeCellFromRange(FEMALE_CONVERSTAION_PER, femaleConversationPer);
         changeCellFromRange(MALE_CONVERSTAION_PER, maleConversationPer);
-
+        excelRecommendation.setMaleOrFemaleRecommendation(getRecommendation(maleConversationPer, femaleConversationPer));
     }
 
     @Override
@@ -134,6 +134,17 @@ public class ExcelMaleOrFemale implements FillingExcel {
         }else {
             c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
         }
+    }
+
+    private String getRecommendation(double maleConversationRate, double femaleConversationRate){
+        String recommendation = "";
+        if(maleConversationRate > femaleConversationRate){
+            recommendation = "Повысить ставки для Мужской аудитории";
+        }
+        if(maleConversationRate < femaleConversationRate){
+            recommendation = "Повысить ставки для Женской аудитории";
+        }
+        return recommendation;
     }
 
 }

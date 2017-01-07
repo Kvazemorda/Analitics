@@ -143,5 +143,6 @@ public class ExcelDevice implements FillingExcel{
         }if(!hasMobileAd){
             deviceRecommendation = "Добавить объявления для мобильных устройств(планшеты и смартфоны)";
         }
+        excelRecommendation.setDeviceRecommendation(deviceRecommendation);
     }
 }

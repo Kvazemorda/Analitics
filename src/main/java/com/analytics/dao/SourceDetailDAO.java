@@ -26,6 +26,7 @@ public class SourceDetailDAO {
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
+                .queryParam("top_keys", "30")
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
                 .build()
                 .toUri();
@@ -34,8 +35,6 @@ public class SourceDetailDAO {
         SourceVisitedFromYaByTime sourceVisitedFromYaByTime = restTemplate.getForObject(url2, SourceVisitedFromYaByTime.class);
         ArrayList<SourceDetail> sourceDetails = new ArrayList<>();
         ArrayList<DimensionData> dimensionDatas = sourceVisitedFromYaByTime.getData();
-        System.out.println(sourceVisitedFromYaByTime);
-        System.out.println(dimensionDatas.size());
         for(int i = 0; i < dimensionDatas.size(); i++){
            ArrayList<Dimension> dimensions = dimensionDatas.get(i).getDimensions();
             SourceDetail sourceDetail = new SourceDetail();

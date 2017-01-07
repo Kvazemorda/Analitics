@@ -1,5 +1,7 @@
 package com.analytics.client;
 
+import com.analytics.entity.response.ya.data.direct.banner.CompanyDirect;
+
 import java.util.ArrayList;
 
 /**
@@ -9,8 +11,7 @@ import java.util.ArrayList;
 public class Client {
     private String metricsID;
     private String oAuthorID;
-    private ArrayList<String> directCompanyID;
-    private ArrayList<String> directCompanyName;
+    private ArrayList<CompanyDirect> companyDirect;
     private String oAuthorIDDirect;
     private String loginDirect;
 
@@ -33,14 +34,6 @@ public class Client {
         this.oAuthorID = oAuthorID;
     }
 
-    public ArrayList<String> getDirectCompanyID() {
-        return directCompanyID;
-    }
-
-    public void setDirectCompanyID(ArrayList<String> directCompanyID) {
-        this.directCompanyID = directCompanyID;
-    }
-
     public String getoAuthorIDDirect() {
         return oAuthorIDDirect;
     }
@@ -57,11 +50,11 @@ public class Client {
         this.loginDirect = loginDirect;
     }
 
-    public ArrayList<String> getDirectCompanyName() {
-        return directCompanyName;
+    public ArrayList<CompanyDirect> getCompanyDirect() {
+        return companyDirect;
     }
 
-    public void setDirectCompanyName(ArrayList<String> directCompanyName) {
-        this.directCompanyName = directCompanyName;
+    public void setCompanyDirect(ArrayList<CompanyDirect> companyDirect) {
+        this.companyDirect = companyDirect;
     }
 }

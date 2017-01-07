@@ -11,6 +11,7 @@ public class ExcelRecommendation {
     private String keyWordNoConversationRecommendation;
     private String keyWordExpensiveRecommendation;
     private String keyWordCheapRecommendation;
+    private String searchOrContext;
 
     public ExcelRecommendation() {
     }
@@ -93,5 +94,30 @@ public class ExcelRecommendation {
 
     public void setAgeUserHighConversationRecommendation(String ageUserHighConversationRecommendation) {
         this.ageUserHighConversationRecommendation = ageUserHighConversationRecommendation;
+    }
+
+    public String getSearchOrContext() {
+        return searchOrContext;
+    }
+
+    public void setSearchOrContext(String searchOrContext) {
+        this.searchOrContext = searchOrContext;
+    }
+
+    @Override
+    public String toString() {
+        return "ExcelRecommendation{" +
+                "deviceRecommendation='" + deviceRecommendation + '\'' +
+                ", ageUserLowConversationRecommendation='" + ageUserLowConversationRecommendation + '\'' +
+                ", ageUserHighConversationRecommendation='" + ageUserHighConversationRecommendation + '\'' +
+                ", maleOrFemaleRecommendation='" + maleOrFemaleRecommendation + '\'' +
+                ", regionRecommendation='" + regionRecommendation + '\'' +
+                ", weekRecommendation='" + weekRecommendation + '\'' +
+                ", dayRecommendation='" + dayRecommendation + '\'' +
+                ", keyWordNoConversationRecommendation='" + keyWordNoConversationRecommendation + '\'' +
+                ", keyWordExpensiveRecommendation='" + keyWordExpensiveRecommendation + '\'' +
+                ", keyWordCheapRecommendation='" + keyWordCheapRecommendation + '\'' +
+                ", searchOrContext='" + searchOrContext + '\'' +
+                '}';
     }
 }

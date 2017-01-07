@@ -31,8 +31,10 @@ public class ExcelDayOfWeek implements FillingExcel{
     public static final String POPULAR_HOURS = "popularHours";
     private ExcelRecommendation excelRecommendation;
     private DecimalFormat decimalFormat;
+    private StringBuilder hourTurnOff;
 
     public ExcelDayOfWeek(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
+        hourTurnOff = new StringBuilder();
         this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
         this.dayOfWeeks = new DayDAO().getDayList(queryClient);
@@ -41,6 +43,9 @@ public class ExcelDayOfWeek implements FillingExcel{
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
+        double avrConversation = 0.0;
+        int visited = 0;
+        int conversation = 0;
         for(int i = 0; i < dayOfWeeks.size(); i++){
             Row row = sheet.getRow(i + 1);
             if(row == null){
@@ -55,7 +60,26 @@ public class ExcelDayOfWeek implements FillingExcel{
             Cell cellConversation = row.createCell(HOURSE_OF_DAY_CONVERSATION_CELL);
             cellConversation.setCellValue(dayOfWeeks.get(i).getHoursOfDayConversation());
 
+            visited += dayOfWeeks.get(i).getHoursOfDayVisited();
+            conversation += dayOfWeeks.get(i).getHoursOfDayConversation();
+
         }
+
+        avrConversation = conversation / (double) visited;
+        for(int i = 0; i < dayOfWeeks.size(); i++){
+            double conversationSingle = dayOfWeeks.get(i).getHoursOfDayConversation();
+            double visitedSingle = dayOfWeeks.get(i).getHoursOfDayVisited();
+            double conversationSingleAvr = conversationSingle / visitedSingle;
+            if(conversationSingleAvr < avrConversation * 0.35){
+                if(i + 1 < dayOfWeeks.size()){
+                    addDayToTurnOff(dayOfWeeks.get(i).getHoursOfDay() + " ");
+                }else {
+                    addDayToTurnOff(dayOfWeeks.get(i).getHoursOfDay());
+                }
+            }
+            excelRecommendation.setDayRecommendation("Отключить рекламу: " + hourTurnOff.toString());
+        }
+
         changeRange(2, dayOfWeeks.size() + 1, HOURSE_OF_DAY_COLUMN, HOURSE_OF_DAY_RN);
         changeRange(2, dayOfWeeks.size() + 1, HOURSE_OF_DAY_VISITED_COLUMN, HOURSE_OF_DAY_VISITED_RN);
         changeRange(2, dayOfWeeks.size() + 1, HOURSE_OF_DAY_CONVERSATION_COLUMN, HOURSE_OF_DAY_CONVERSATION_RN);
@@ -75,12 +99,7 @@ public class ExcelDayOfWeek implements FillingExcel{
             }
             conversation += list.get(i).getHoursOfDayConversation();
         }
-        if(countConversationExist != 0){
-            avrConversation = conversation / countConversationExist;
-        }else {
-            avrConversation = 0;
-        }
-
+        avrConversation = conversation / countConversationExist;
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < list.size(); i++){
             if(list.get(i).getHoursOfDayConversation() > avrConversation){
@@ -92,7 +111,6 @@ public class ExcelDayOfWeek implements FillingExcel{
                 }
             }
         }
-
         return stringBuilder.toString();
     }
 
@@ -117,4 +135,7 @@ public class ExcelDayOfWeek implements FillingExcel{
         c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
     }
 
+    private void addDayToTurnOff(String dayOfWeek){
+        hourTurnOff.append(dayOfWeek);
+    }
 }

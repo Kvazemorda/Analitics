@@ -9,6 +9,7 @@ public class Dimension {
     private String icon_type;
     private String id;
     private String direct_id;
+    private String DirectOrderIDInternal;
 
     public Dimension() {
     }
@@ -51,6 +52,14 @@ public class Dimension {
 
     public void setDirect_id(String direct_id) {
         this.direct_id = direct_id;
+    }
+
+    public String getDirectOrderIDInternal() {
+        return DirectOrderIDInternal;
+    }
+
+    public void setDirectOrderIDInternal(String directOrderIDInternal) {
+        DirectOrderIDInternal = directOrderIDInternal;
     }
 
     @Override
