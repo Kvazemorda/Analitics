@@ -24,6 +24,7 @@ public class DeviceClientDAO {
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("metrics", "ym:s:bounceRate")
                 .queryParam("dimensions", "ym:s:deviceCategory")
+                .queryParam("filters=ym:s:trafficSource=", "'ad'")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("top_keys", "30")
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
@@ -55,6 +56,6 @@ public class DeviceClientDAO {
     }
 
     public boolean companyHasMobileAd(){
-        return false;
+        return true;
     }
 }

@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.SourceDetailDAO;
 import com.analytics.entity.report.SourceDetail;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,7 +34,7 @@ public class ExcelSourceDetail implements FillingExcel {
         decimalFormat = new DecimalFormat("##0.00");
         this.excelRecommendation = excelRecommendation;
         this.sourceDetailList = new SourceDetailDAO().getSourceDetail(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
 
     }
 
@@ -63,7 +63,7 @@ public class ExcelSourceDetail implements FillingExcel {
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -83,7 +83,7 @@ public class ExcelSourceDetail implements FillingExcel {
         }
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
-        c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+        c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
     }
 
     private String getFirstSource(){

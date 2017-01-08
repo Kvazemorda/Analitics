@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.DeviceClientDAO;
 import com.analytics.entity.report.DeviceClient;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -36,7 +36,7 @@ public class ExcelDevice implements FillingExcel{
         this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
         this.devices = new DeviceClientDAO().deviceList(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
     @Override
@@ -97,11 +97,11 @@ public class ExcelDevice implements FillingExcel{
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 != 0){
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE);
         }else if(ITEMS_QULITY_PER.equals(rangeName)){
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE_SIMPLE);
         }
     }
 
@@ -116,11 +116,11 @@ public class ExcelDevice implements FillingExcel{
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 != 0){
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE);
         }else if(ITEMS_QULITY_PER.equals(rangeName)){
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE_SIMPLE);
         }
     }
 

@@ -27,7 +27,7 @@ public class ExcelGoal implements FillingExcel {
         decimalFormat = new DecimalFormat("##0.00");
         this.excelRecommendation = excelRecommendation;
         this.goalList = new GoalDAO().getGoalList(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
 
@@ -51,7 +51,7 @@ public class ExcelGoal implements FillingExcel {
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 

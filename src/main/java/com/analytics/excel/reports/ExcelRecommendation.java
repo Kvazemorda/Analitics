@@ -2,6 +2,7 @@ package com.analytics.excel.reports;
 
 public class ExcelRecommendation {
     private String deviceRecommendation;
+    private String addMobileAd;
     private String ageUserLowConversationRecommendation;
     private String ageUserHighConversationRecommendation;
     private String maleOrFemaleRecommendation;
@@ -22,6 +23,14 @@ public class ExcelRecommendation {
 
     public void setDeviceRecommendation(String deviceRecommendation) {
         this.deviceRecommendation = deviceRecommendation;
+    }
+
+    public String getAddMobileAd() {
+        return addMobileAd;
+    }
+
+    public void setAddMobileAd(String addMobileAd) {
+        this.addMobileAd = addMobileAd;
     }
 
     public String getMaleOrFemaleRecommendation() {
@@ -106,18 +115,20 @@ public class ExcelRecommendation {
 
     @Override
     public String toString() {
-        return "ExcelRecommendation{" +
-                "deviceRecommendation='" + deviceRecommendation + '\'' +
-                ", ageUserLowConversationRecommendation='" + ageUserLowConversationRecommendation + '\'' +
-                ", ageUserHighConversationRecommendation='" + ageUserHighConversationRecommendation + '\'' +
-                ", maleOrFemaleRecommendation='" + maleOrFemaleRecommendation + '\'' +
-                ", regionRecommendation='" + regionRecommendation + '\'' +
-                ", weekRecommendation='" + weekRecommendation + '\'' +
-                ", dayRecommendation='" + dayRecommendation + '\'' +
-                ", keyWordNoConversationRecommendation='" + keyWordNoConversationRecommendation + '\'' +
-                ", keyWordExpensiveRecommendation='" + keyWordExpensiveRecommendation + '\'' +
-                ", keyWordCheapRecommendation='" + keyWordCheapRecommendation + '\'' +
-                ", searchOrContext='" + searchOrContext + '\'' +
-                '}';
+        return "Рекомендации по рекламной кампании: \n" +
+                searchOrContext+ "\n" +
+                "Рекомендации по устройствам: \n" +
+                deviceRecommendation + "\n" +
+                "Рекомендации по возрастной группе: \n" +
+                ageUserLowConversationRecommendation + "\n" +
+                ageUserHighConversationRecommendation + "\n" +
+                "Рекомендации по полу посетителей: \n" +
+                maleOrFemaleRecommendation + "\n" +
+                "Рекомендации по географии: \n" +
+                regionRecommendation + "\n" +
+                "Рекомендации по дням недели: \n" +
+                weekRecommendation + "\n" +
+                "Рекомендации по времени суток: \n" +
+                dayRecommendation + "\n";
     }
 }

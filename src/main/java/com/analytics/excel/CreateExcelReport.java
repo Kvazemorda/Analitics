@@ -15,7 +15,7 @@ public class CreateExcelReport {
     private String nameTemplate = "template/report.xlsx";
     private String pathToSaveReport = "ready/report1.xlsx";
     public static XSSFWorkbook book;
-    public static XSSFSheet sheet, sheetReport;
+    public static XSSFSheet sheetData, sheetReport, sheetReccomendation;
     public static XSSFSheet sheetStyle;
     private CreationHelper creationHelper;
     private SourceVisited sourceVisited;
@@ -32,9 +32,10 @@ public class CreateExcelReport {
             //create Excel book
             inputStream = new FileInputStream(nameTemplate);
             book = new XSSFWorkbook(inputStream);
-            sheet = book.getSheet("ChanelTrafic");
+            sheetData = book.getSheet("ChanelTrafic");
             sheetReport = book.getSheet("report");
             sheetStyle = book.getSheet("style");
+            sheetReccomendation = book.getSheet("recommendation");
             clearSheet();
             FileOutputStream fileOutputStream = new FileOutputStream(pathToSaveReport);
 
@@ -51,7 +52,6 @@ public class CreateExcelReport {
             ExcelWeek excelWeek = new ExcelWeek(queryClient, excelRecommendation);
             ExcelDayOfWeek excelDayOfWeek = new ExcelDayOfWeek(queryClient, excelRecommendation);
             ExcelCosts excelCosts = new ExcelCosts(queryClient, excelRecommendation);
-
             creationHelper = book.getCreationHelper();
             book.write(fileOutputStream);
             book.close();
@@ -64,11 +64,11 @@ public class CreateExcelReport {
     }
 
     private void clearSheet(){
-        for(int i = 1; i <= sheet.getLastRowNum(); i++){
+        for(int i = 1; i <= sheetData.getLastRowNum(); i++){
             for(int j = 0; j < 43; j++){
-                if(sheet.getRow(i).getCell(j) != null){
-                    Cell cell = sheet.getRow(i).getCell(j);
-                    sheet.getRow(i).removeCell(cell);
+                if(sheetData.getRow(i).getCell(j) != null){
+                    Cell cell = sheetData.getRow(i).getCell(j);
+                    sheetData.getRow(i).removeCell(cell);
                 }
             }
         }

@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.DynamicConversationDAO;
 import com.analytics.entity.report.DynamicConversation;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -33,7 +33,7 @@ public class ExcelDynamicConversation implements FillingExcel{
         decimalFormat = new DecimalFormat("##0.00");
         this.dynamicConversations = new DynamicConversationDAO().getList(queryClient);
         this.excelRecommendation = excelRecommendation;
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class ExcelDynamicConversation implements FillingExcel{
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -73,7 +73,7 @@ public class ExcelDynamicConversation implements FillingExcel{
     }
 
     private CellStyle getStyle(){
-        CellStyle cellStyle = ConfigExcel.STYLE_DATE;
+        CellStyle cellStyle = StyleExcel.STYLE_DATE;
             return cellStyle;
         }
 }

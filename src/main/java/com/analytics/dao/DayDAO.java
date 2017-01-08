@@ -22,6 +22,7 @@ public class DayDAO {
                 .queryParam("dimensions", "ym:s:hour")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
+                .queryParam("filters=ym:s:trafficSource=", "'ad'")
                 .queryParam("top_keys", "24")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())

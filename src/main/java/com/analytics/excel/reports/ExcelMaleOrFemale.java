@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.MaleOrFemaleDAO;
 import com.analytics.entity.report.MaleOrFemale;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -39,7 +39,7 @@ public class ExcelMaleOrFemale implements FillingExcel {
         this.excelRecommendation = excelRecommendation;
         decimalFormat = new DecimalFormat("##0.00");
         this.maleOrFemales = new MaleOrFemaleDAO().maleOrFemaleList(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ExcelMaleOrFemale implements FillingExcel {
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -113,9 +113,9 @@ public class ExcelMaleOrFemale implements FillingExcel {
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(rangeName.equals(FEMALE_CONVERSTAION_PER) || rangeName.equals(MALE_CONVERSTAION_PER)){
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION_CENTER);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION_CENTER);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
         }
     }
 
@@ -130,9 +130,9 @@ public class ExcelMaleOrFemale implements FillingExcel {
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(rangeName.equals(FEMALE_CONVERSTAION_PER) || rangeName.equals(MALE_CONVERSTAION_PER)){
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION_CENTER);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION_CENTER);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+            c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
         }
     }
 

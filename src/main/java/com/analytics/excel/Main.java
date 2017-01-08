@@ -3,6 +3,9 @@ package com.analytics.excel;
 import com.analytics.client.Client;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.BannerStatItemDAO;
+import com.analytics.dao.SourceVisitedDAO;
+import com.analytics.dao.WeekDAO;
+import com.analytics.entity.response.ya.data.direct.banner.CompanyDirect;
 
 import java.util.ArrayList;
 
@@ -25,24 +28,13 @@ public class Main {
         client.setoAuthorID("AQAAAAAX4cvvAAOfZ6owq72SMETPiz7NAAIik7Q");
         client.setCompanyDirect(new ArrayList<>());
 
-        /*client.getDirectCompanyID().add("20255884");
-        client.getDirectCompanyID().add("21265071");
-        client.getDirectCompanyID().add("21265077");
-        client.getDirectCompanyID().add("21808774");
-        client.getDirectCompanyID().add("21878625");*/
-        //client.getCompanyDirect().add(new CompanyDirect("21879001", "Банкротство для кредиторов РСЯ 29.09.16"));
-        /*client.getDirectCompanyID().add("21984478");
-        client.getDirectCompanyID().add("22015078");
-        client.getDirectCompanyID().add("22018753");
-        client.getDirectCompanyID().add("22037246");
-        client.getDirectCompanyID().add("22325876");
-        client.getDirectCompanyID().add("23139450");*/
+        client.getCompanyDirect().add(new CompanyDirect("21879001", "Банкротство для кредиторов РСЯ 29.09.16"));
         client.setoAuthorIDDirect("AQAAAAAX4cvvAAPC2-tQJOpLaEY8vk_70YJuZ_U");
         client.setLoginDirect("AristokratDirect");
-        QueryClient queryClient = new QueryClient("2016-11-30", "2016-12-30", client, 70);
+        QueryClient queryClient = new QueryClient("2016-11-30", "2016-12-06", client, 70);
 
         BannerStatItemDAO bannerStatItemDAO = new BannerStatItemDAO();
-        bannerStatItemDAO.getCompanyName(queryClient);
+     //   bannerStatItemDAO.getCompanyName(queryClient);
         CreateExcelReport createExcelTemplate = new CreateExcelReport(queryClient);
 
 }

@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.FunnelDAO;
 import com.analytics.entity.report.Funnel;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -67,7 +67,7 @@ public class ExcelFunnel implements FillingExcel {
         Row r =  s.getRow(cells[0].getRow());
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
-        c.setCellStyle(ConfigExcel.STYLE_FUNNEL);
+        c.setCellStyle(StyleExcel.STYLE_FUNNEL);
 
     }
 }

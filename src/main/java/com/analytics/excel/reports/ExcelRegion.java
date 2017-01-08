@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.RegionDAO;
 import com.analytics.entity.report.Region;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,7 +34,7 @@ public class ExcelRegion implements FillingExcel{
     public ExcelRegion(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         decimalFormat = new DecimalFormat("##0.00");
         this.regions = new RegionDAO().regionList(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
 
@@ -60,7 +60,7 @@ public class ExcelRegion implements FillingExcel{
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -75,7 +75,7 @@ public class ExcelRegion implements FillingExcel{
         Row r =  s.createRow(cells[0].getRow());
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
-        c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+        c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
     }
     private String getLeadOfRegion(){
         String pattern = "##0.00";

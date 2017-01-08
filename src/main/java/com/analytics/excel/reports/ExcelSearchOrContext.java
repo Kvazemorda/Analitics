@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.SearchOrContextDAO;
 import com.analytics.entity.response.ya.data.direct.StatItem;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -92,9 +92,9 @@ public class ExcelSearchOrContext implements FillingExcel{
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 == 0){
-            c.setCellStyle(ConfigExcel.STYLE_SEARCH_CONTEXT);
+            c.setCellStyle(StyleExcel.STYLE_SEARCH_CONTEXT);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_SEARCH_CONTEXT_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_SEARCH_CONTEXT_SIMPLE);
         }
     }
 
@@ -110,12 +110,12 @@ public class ExcelSearchOrContext implements FillingExcel{
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(rangeName.equals(COST) || rangeName.equals(COUNT_ADVERT) || rangeName.equals(AVR_COST_OF_ADVERT)){
-            c.setCellStyle(ConfigExcel.STYLE_ADVERT);
+            c.setCellStyle(StyleExcel.STYLE_ADVERT);
         }
         if (r.getRowNum() % 2 == 0) {
-            c.setCellStyle(ConfigExcel.STYLE_SEARCH_CONTEXT);
+            c.setCellStyle(StyleExcel.STYLE_SEARCH_CONTEXT);
         } else {
-            c.setCellStyle(ConfigExcel.STYLE_SEARCH_CONTEXT_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_SEARCH_CONTEXT_SIMPLE);
         }
     }
     public String getRecommendation(double contextCostOne, double findCostOne){

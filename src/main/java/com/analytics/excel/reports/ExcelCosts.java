@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.CompanyCostsDAO;
 import com.analytics.entity.report.CompanyCosts;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.*;
@@ -37,6 +37,7 @@ public class ExcelCosts implements FillingExcel {
     public static final String COST_WITHOUT_CONVERSATION = "costWithoutConversation";
     private ExcelRecommendation excelRecommendation;
     private QueryClient queryClient;
+    private int lastRowNumber;
 
     private DecimalFormat decimalFormat;
 
@@ -126,6 +127,7 @@ public class ExcelCosts implements FillingExcel {
             sheet.addMergedRegion(new CellRangeAddress(row.getRowNum(),row.getRowNum(), COST_ONE_CONVERSATION_CELL, COST_ONE_CONVERSATION_CELL + 1));
             cellCostOneConversation.setCellValue(costCompany.get(i).getCostOneConversation());
             cellCostOneConversation.setCellStyle(getStyle(row.getRowNum(), conversation, costCompany.get(i).getCostOneConversation()));
+            lastRowNumber = row.getRowNum();
         }
 
         costConversationRate = (costKeyGiveConversation / sendAll*100);
@@ -137,28 +139,28 @@ public class ExcelCosts implements FillingExcel {
         changeCellFromRange(COST_CONVERSATION, costKeyGiveConversation / 1000);
         changeCellFromRange(COST_WITHOUT_CONVERSATION, costWithoutConversation / 1000 );
         changeCellFromRange(EFFECIENT_CONVERSATION_TWO, costConversationRate);
-
+        addRecommendation(excelRecommendation);
     }
 
     private CellStyle getStyle(int rowNumber, double conversation, double cost){
         CellStyle cellStyle = null;
         if(conversation == 0){
             if(rowNumber % 2 != 0){
-                return cellStyle = ConfigExcel.STYLE_COST_NO_CONVERSTION;
+                return cellStyle = StyleExcel.STYLE_COST_NO_CONVERSTION;
             }else {
-                return cellStyle = ConfigExcel.STYLE_COST_NO_CONVERSTION_1;
+                return cellStyle = StyleExcel.STYLE_COST_NO_CONVERSTION_1;
             }
         }else if(cost > queryClient.getMaxCpa()){
             if(rowNumber % 2 != 0){
-                return cellStyle = ConfigExcel.STYLE_COST_EXPENSIVE_CONVERSATION;
+                return cellStyle = StyleExcel.STYLE_COST_EXPENSIVE_CONVERSATION;
             }else {
-                return cellStyle = ConfigExcel.STYLE_COST_EXPENSIVE_CONVERSATION_1;
+                return cellStyle = StyleExcel.STYLE_COST_EXPENSIVE_CONVERSATION_1;
             }
         }else {
             if (rowNumber % 2 != 0) {
-                return cellStyle = ConfigExcel.STYLE_COST_CHEAP_CONVERSATION;
+                return cellStyle = StyleExcel.STYLE_COST_CHEAP_CONVERSATION;
             } else {
-                return cellStyle = ConfigExcel.STYLE_COST_CHEAP_CONVERSATION_1;
+                return cellStyle = StyleExcel.STYLE_COST_CHEAP_CONVERSATION_1;
             }
         }
     }
@@ -166,7 +168,7 @@ public class ExcelCosts implements FillingExcel {
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -182,9 +184,9 @@ public class ExcelCosts implements FillingExcel {
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 != 0){
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE_SIMPLE);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE);
         }
     }
 
@@ -199,9 +201,9 @@ public class ExcelCosts implements FillingExcel {
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 != 0){
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE_SIMPLE);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE);
         }
     }
 
@@ -216,9 +218,14 @@ public class ExcelCosts implements FillingExcel {
         c = r.createCell(cells[0].getCol());
         c.setCellValue(changeValue);
         if(r.getRowNum() % 2 != 0){
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE_SIMPLE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE_SIMPLE);
         }else {
-            c.setCellStyle(ConfigExcel.STYLE_DEVICE);
+            c.setCellStyle(StyleExcel.STYLE_DEVICE);
         }
+    }
+
+    private void addRecommendation(ExcelRecommendation excelRecommendation){
+        ExcelAddRecommendation excelAdd = new ExcelAddRecommendation(excelRecommendation);
+        //CreateExcelReport.sheetReport.addMergedRegion(new CellRangeAddress(lastRowNumber, lastRowNumber, 1, 18));
     }
 }

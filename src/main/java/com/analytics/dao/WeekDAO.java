@@ -24,6 +24,7 @@ public class WeekDAO {
                 .queryParam("accuracy", "full")
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
+                .queryParam("filters=ym:s:trafficSource=", "'ad'")
                 .queryParam("dimensions", "ym:s:dayOfWeek")
                 .queryParam("top_keys", "7")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
@@ -53,7 +54,7 @@ public class WeekDAO {
             set.add(new Week(dimensionDatas.get(j).getDimensions().get(0).getName(), metric, conversation));
             list.addAll(set);
         }
-
+        System.out.println(list);
         return list;
     }
 }

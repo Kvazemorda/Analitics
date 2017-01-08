@@ -23,6 +23,7 @@ public class RegionDAO {
                 .queryParam("metrics", "ym:s:anyGoalConversionRate")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("dimensions", "ym:s:regionDistrict")
+                .queryParam("filters=ym:s:trafficSource=", "'ad'")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("top_keys", "30")
                 .queryParam("oauth_token", queryClient.getClient().getoAuthorID())

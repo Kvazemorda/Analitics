@@ -3,7 +3,7 @@ package com.analytics.excel.reports;
 import com.analytics.client.QueryClient;
 import com.analytics.dao.UserAgeDAO;
 import com.analytics.entity.report.UserAge;
-import com.analytics.excel.ConfigExcel;
+import com.analytics.excel.StyleExcel;
 import com.analytics.excel.CreateExcelReport;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -34,65 +34,37 @@ public class ExcelUserAge implements FillingExcel {
     private StringBuilder stringLowRecommendation, stringHighRecommendation;
     private DecimalFormat decimalFormat;
     private String pattern = "##0.00";
+    private double conversationRateAverage = 0.0;
 
     public ExcelUserAge(QueryClient queryClient, ExcelRecommendation excelRecommendation) {
         stringHighRecommendation = new StringBuilder();
         stringLowRecommendation = new StringBuilder();
         this.excelRecommendation = excelRecommendation;
         this.userAges = new UserAgeDAO().userAgesList(queryClient);
-        fillListToExcel(CreateExcelReport.sheet);
+        fillListToExcel(CreateExcelReport.sheetData);
     }
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
-
         decimalFormat = new DecimalFormat(pattern);
         int visitALL = 0;
-        int conversationCut = 0;
-        double conversationRateAll = 0.0;
-        int visitedHigh = 0;
-        int visitedLow = 0;
+
         int conversationAll = 0;
         for(int i = 0; i < userAges.size(); i++) {
             visitALL += userAges.get(i).getUserVisited();
-            conversationCut += userAges.get(i).getUserConversation();
-        }
-        conversationRateAll = conversationCut / (double) visitALL;
-        for(int i = 0; i < userAges.size(); i++) {
+            conversationAll += userAges.get(i).getUserConversation();
             Row row = sheet.getRow(i + 1);
             if (row == null) {
                 row = sheet.createRow(i + 1);
             }
             Cell nameCell = row.createCell(RANGE_AGE_USER);
             nameCell.setCellValue(userAges.get(i).getRangeAgeUser());
-
             Cell visitedCell = row.createCell(USER_VISITED);
             visitedCell.setCellValue(userAges.get(i).getUserVisited());
-
             Cell conversationCell = row.createCell(USER_CONVERSATION);
             conversationCell.setCellValue(userAges.get(i).getUserConversation());
-            if (i + 1 == userAges.size()) {
-                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() * 100 < 0.6) {
-                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ".");
-                    conversationCut += userAges.get(i).getUserConversation();
-                    visitedLow += userAges.get(i).getUserVisited();
-                }
-                if(userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateAll){
-                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ".");
-                    visitedHigh += userAges.get(i).getUserVisited();
-                }
-            }else {
-                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() * 100 < 0.6) {
-                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
-                    conversationCut += userAges.get(i).getUserConversation();
-                    visitedLow += userAges.get(i).getUserVisited();
-                }
-                if(userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateAll){
-                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
-                    visitedHigh += userAges.get(i).getUserVisited();
-                }
-            }
         }
+
         //change range for name column
         changeRange(2, userAges.size() + 1, RANGE_AGE_USER_COLUMN, RANGE_AGE_USER_RN);
         //change range for visited column
@@ -103,15 +75,8 @@ public class ExcelUserAge implements FillingExcel {
         changeCellFromRange(REGION_AGE_LIDER, getFirstRange());
         changeCellFromRange(REGION_AGE_CONVERSATION_LIDER, getBestCoeff());
 
-        String lowRecommendation = "Отключить объявления для возрастных групп: " + stringLowRecommendation.toString();
-        lowRecommendation += "\n Затраты снизятся на " + ExcelFunnel.costOneConversation * conversationCut;
-        excelRecommendation.setAgeUserLowConversationRecommendation(lowRecommendation);
-
-        String highRecommendation = "Повысить ставки на " +  + ExcelFunnel.costOneConversation * conversationCut +
-                " для возрастных групп: " + stringHighRecommendation.toString();
-        highRecommendation += "\n Конверсий увеличится на "
-                + (int)(visitedLow * getBestConversationRate() - visitedLow * getBadConversationRate())/100;
-        excelRecommendation.setAgeUserHighConversationRecommendation(highRecommendation);
+        conversationRateAverage = conversationAll / (double) visitALL;
+        createRecommendationOfUserAge(userAges);
     }
 
     private String getFirstRange(){
@@ -178,7 +143,7 @@ public class ExcelUserAge implements FillingExcel {
     @Override
     public void changeRange(int start, int end, String column, String rangeName) {
         XSSFName rangeCell = CreateExcelReport.book.getName(rangeName);
-        String reference = CreateExcelReport.sheet.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
+        String reference = CreateExcelReport.sheetData.getSheetName() + "!$" + column + "$" + start + ":$" + column + "$" + (end);
         rangeCell.setRefersToFormula(reference);
     }
 
@@ -193,7 +158,48 @@ public class ExcelUserAge implements FillingExcel {
         Row r =  s.getRow(cells[0].getRow());
         c = r.getCell(cells[0].getCol());
         c.setCellValue(changeValue);
-        c.setCellStyle(ConfigExcel.STYLE_DESCRIPTION);
+        c.setCellStyle(StyleExcel.STYLE_DESCRIPTION);
+    }
+
+    private void createRecommendationOfUserAge(ArrayList<UserAge> usersAge){
+        int conversationCut = 0;
+        int visitedHigh = 0;
+        int visitedLow = 0;
+        for(int i = 0; i < usersAge.size(); i++) {
+            if (i + 1 == userAges.size()) {
+                if ((userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited()) < conversationRateAverage * 0.5) {
+                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ".");
+                    conversationCut += userAges.get(i).getUserConversation();
+                    visitedLow += userAges.get(i).getUserVisited();
+                }
+                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateAverage * 1.3) {
+                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ".");
+                    visitedHigh += userAges.get(i).getUserVisited();
+                }
+            } else {
+                if ((userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited()) < conversationRateAverage * 0.5) {
+                    createTextLowRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
+                    conversationCut += userAges.get(i).getUserConversation();
+                    visitedLow += userAges.get(i).getUserVisited();
+                }
+                if (userAges.get(i).getUserConversation() / userAges.get(i).getUserVisited() >= conversationRateAverage * 1.3) {
+                    createTextHighRecommendation(userAges.get(i).getRangeAgeUser() + ", ");
+                    visitedHigh += userAges.get(i).getUserVisited();
+                }
+            }
+        }
+        if(!stringLowRecommendation.toString().equals("")){
+
+            String lowRecommendation = "Отключить объявления для возрастных групп: " + stringLowRecommendation.toString();
+            String lowCosts = "\n Затраты снизятся на " + ExcelFunnel.costOneConversation * conversationCut;
+            excelRecommendation.setAgeUserLowConversationRecommendation(lowRecommendation + " " + lowCosts);
+
+            String highRecommendation = "Повысить ставки на " + ExcelFunnel.costOneConversation * conversationCut +
+                    " для возрастных групп: " + stringHighRecommendation.toString();
+            highRecommendation += "\n Конверсий увеличится на "
+                    + (int)(visitedLow * getBestConversationRate() - visitedLow * getBadConversationRate())/100;
+            excelRecommendation.setAgeUserHighConversationRecommendation(highRecommendation);
+        }
     }
 
     private void createTextLowRecommendation(String text){
