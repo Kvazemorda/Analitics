@@ -26,7 +26,7 @@ public class SearchOrContextDAO {
     private StatItem statItem = null;
     public StatItem getSummaryStat(QueryClient queryClient) {
         JSONArray campaingIDS = new JSONArray();
-        for(CompanyDirect companyDirect: queryClient.getClient().getCompanyDirect()){
+        for(CompanyDirect companyDirect: queryClient.getCompanyDirect()){
             campaingIDS.add(companyDirect.getCompanyID());
         }
         JSONObject param = new JSONObject();
@@ -106,7 +106,7 @@ public class SearchOrContextDAO {
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("attribution", "last")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();

@@ -1,11 +1,10 @@
 package com.analytics.entity.response.ya.data.direct.banner;
-
 import java.util.ArrayList;
 
 public class CompanyDirect {
-    private ArrayList<BannersStatItem> bannersStatItems;
     private String companyID;
     private String companyName;
+    private ArrayList<BannersStatItem> bannersStatItems;
 
     public CompanyDirect() {
     }

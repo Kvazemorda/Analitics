@@ -27,7 +27,7 @@ public class DeviceClientDAO {
                 .queryParam("filters=ym:s:trafficSource=", "'ad'")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
                 .queryParam("top_keys", "30")
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();

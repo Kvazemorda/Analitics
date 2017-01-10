@@ -26,7 +26,7 @@ public class SourceVisitedDAO {
                 .queryParam("attribution", "last")
                 .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();

@@ -36,7 +36,7 @@ public class BannerStatItemDAO {
     public HashMap<Integer, BannersStatItem> getBannerSummaryStat(QueryClient queryClient) {
         ArrayList<String> listDate = getSevenDays(queryClient.getDate1(), queryClient.getDate2());
         Data data = null;
-        for (int iCompany = 0; iCompany < queryClient.getClient().getCompanyDirect().size(); iCompany++){
+        for (int iCompany = 0; iCompany < queryClient.getCompanyDirect().size(); iCompany++){
 
             for(int dateRange = 0; dateRange < listDate.size(); dateRange++) {
                 JSONArray groupByColumns = new JSONArray();
@@ -45,7 +45,7 @@ public class BannerStatItemDAO {
                 groupByColumns.add("clDeviceType");
                 groupByColumns.add("clAveragePosition");
                 JSONObject param = new JSONObject();
-                param.put("CampaignID", queryClient.getClient().getCompanyDirect().get(iCompany).getCompanyID());
+                param.put("CampaignID", queryClient.getCompanyDirect().get(iCompany).getCompanyID());
                 param.put("StartDate", listDate.get(dateRange));
                 if(dateRange + 1 == listDate.size()){
                     break;
@@ -77,7 +77,7 @@ public class BannerStatItemDAO {
                     Gson gson = new Gson();
                     data = gson.fromJson(jsonString, Data.class);
                     for (int statItem = 0; statItem < data.getData().getStat().size(); statItem++) {
-                        data.getData().getStat().get(statItem).setCompanyName(queryClient.getClient().getCompanyDirect().get(iCompany).getCompanyName());
+                        data.getData().getStat().get(statItem).setCompanyName(queryClient.getCompanyDirect().get(iCompany).getCompanyName());
                         data.getData().getStat().get(statItem).setPhrase(clearingPhrase(data.getData().getStat().get(statItem).getPhrase()));
                     }
                     sumBannersStatItems(data);
@@ -130,7 +130,7 @@ public class BannerStatItemDAO {
                 .queryParam("currency", "RUB")
                 .queryParam("top_keys", "30")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();
@@ -140,7 +140,7 @@ public class BannerStatItemDAO {
         for(int j = 0; j < dimensionDatas.size(); j++){
             String splitId = dimensionDatas.get(j).getDimensions().get(0).getDirect_id().split("N-")[1];
             String companyName = dimensionDatas.get(j).getDimensions().get(0).getName();
-            queryClient.getClient().getCompanyDirect().add(new CompanyDirect(splitId, companyName));
+            queryClient.getCompanyDirect().add(new CompanyDirect(splitId, companyName));
         }
     }
 
@@ -156,7 +156,7 @@ public class BannerStatItemDAO {
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("currency", "RUB")
                 .queryParam("ids", queryClient.getClient().getMetricsID())
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
         RestTemplate restTemplate = new RestTemplate();

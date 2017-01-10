@@ -1,11 +1,16 @@
 package com.analytics.client;
 
+import com.analytics.entity.response.ya.data.direct.banner.CompanyDirect;
+
+import java.util.ArrayList;
+
 public class QueryClient {
 
     private String date1;
     private String date2;
     private double maxCpa;
     private Client client;
+    private ArrayList<CompanyDirect> companyDirect;
 
     public QueryClient(String date1, String date2, Client client, double maxCpa) {
         this.date1 = date1;
@@ -44,5 +49,13 @@ public class QueryClient {
 
     public void setMaxCpa(double maxCpa) {
         this.maxCpa = maxCpa;
+    }
+
+    public ArrayList<CompanyDirect> getCompanyDirect() {
+        return companyDirect;
+    }
+
+    public void setCompanyDirect(ArrayList<CompanyDirect> companyDirect) {
+        this.companyDirect = companyDirect;
     }
 }

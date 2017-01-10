@@ -27,7 +27,7 @@ public class SourceDetailDAO {
                 .queryParam("metrics", "ym:s:sumGoalReachesAny")
                 .queryParam("metrics", "ym:s:visits")
                 .queryParam("top_keys", "30")
-                .queryParam("oauth_token", queryClient.getClient().getoAuthorID())
+                .queryParam("oauth_token", queryClient.getClient().getoOAuthorIDMetric())
                 .build()
                 .toUri();
 

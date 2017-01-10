@@ -1,21 +1,32 @@
 package com.analytics.client;
 
-import com.analytics.entity.response.ya.data.direct.banner.CompanyDirect;
-
-import java.util.ArrayList;
+import javax.persistence.*;
 
 /**
  * Each client has metricsID and oAuthorID.
  * Them need get before start create report
  */
+@Entity
+@Table
 public class Client {
-    private String metricsID;
-    private String oAuthorID;
-    private ArrayList<CompanyDirect> companyDirect;
-    private String oAuthorIDDirect;
-    private String loginDirect;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false) private int id;
+    @Basic @Column(nullable = false) private String metricsID;
+    @Basic @Column(nullable = false) private String oAuthorIDMetric;
+    @Basic @Column(nullable = false) private String oAuthorIDDirect;
+    @Basic @Column(nullable = false) private String loginDirect;
+
 
     public Client() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getMetricsID() {
@@ -26,12 +37,12 @@ public class Client {
         this.metricsID = metricsID;
     }
 
-    public String getoAuthorID() {
-        return oAuthorID;
+    public String getoOAuthorIDMetric() {
+        return oAuthorIDMetric;
     }
 
-    public void setoAuthorID(String oAuthorID) {
-        this.oAuthorID = oAuthorID;
+    public void setoOAuthorIDMetric(String oAuthorID) {
+        this.oAuthorIDMetric = oAuthorID;
     }
 
     public String getoAuthorIDDirect() {
@@ -50,11 +61,4 @@ public class Client {
         this.loginDirect = loginDirect;
     }
 
-    public ArrayList<CompanyDirect> getCompanyDirect() {
-        return companyDirect;
-    }
-
-    public void setCompanyDirect(ArrayList<CompanyDirect> companyDirect) {
-        this.companyDirect = companyDirect;
-    }
 }
