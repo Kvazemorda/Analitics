@@ -8,7 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,9 +50,9 @@ public class DynamicConversationDAO {
             for (int j = 0; j < dimensionDatas.get(i).getDimensions().size(); j++){
                 try {
                     date = simpleDateFormat.parse(dimensionDatas.get(i).getDimensions().get(j).getName());
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+                    } catch (java.text.ParseException e) {
+                        e.printStackTrace();
+                    }
             }
             set.add(new DynamicConversation(visited, conversation, date, visited/10));
         }

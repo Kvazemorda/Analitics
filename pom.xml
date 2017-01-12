@@ -7,6 +7,8 @@
     <groupId>analytics</groupId>
     <artifactId>analytics</artifactId>
     <version>0.1</version>
+
+
     <build>
         <plugins>
             <plugin>
@@ -31,7 +33,7 @@
         </plugins>
     </build>
 
-    <packaging>war</packaging>>
+    <packaging>war</packaging>
 
     <properties>
         <hibernate-entitymanager.version>5.2.5.Final</hibernate-entitymanager.version>
@@ -97,12 +99,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate-entitymanager.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <version>${postgresql.version}</version>
@@ -129,6 +125,22 @@
             <version>${hibernate-jpa-2.1-api.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>3.0-alpha-1</version>
+        </dependency>
+        <dependency>
+            <groupId>javaee</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>5</version>
+        </dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-web-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
 </project>

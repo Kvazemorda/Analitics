@@ -207,7 +207,6 @@ public class BannerStatItemDAO {
                 dateStart.setTime(dateStart.getTime() + (dateEnd.getTime() - dateStart.getTime()));
                 list.add(sdf.format(dateStart));
             }
-            list.forEach(System.out::println);
 
         } catch (ParseException e) {
             e.printStackTrace();
