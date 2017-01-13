@@ -15,7 +15,7 @@
         <property name="hibernate.hbm2ddl.auto">update</property>
 
 
-        <mapping class="com.analytics.client.Client"/>
+        <mapping class="com.analytics.entity.client.Client"/>
 
     </session-factory>
 </hibernate-configuration>

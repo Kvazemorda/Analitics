@@ -1,10 +1,10 @@
 package com.analytics;
 
-import com.analytics.client.Client;
-import com.analytics.client.QueryClient;
-import com.analytics.dao.BannerStatItemDAO;
-import com.analytics.excel.CreateExcelReport;
-import com.analytics.hibernate.HibernateSessionFactory;
+import com.analytics.entity.client.Client;
+import com.analytics.entity.client.QueryClient;
+import com.analytics.report.dao.BannerStatItemDAO;
+import com.analytics.report.excel.CreateExcelReport;
+import com.analytics.service.hibernate.HibernateSessionFactory;
 
 import java.util.ArrayList;
 
