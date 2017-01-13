@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("getReport/")
+@WebServlet("/getReport")
 public class ReportServlet extends HttpServlet {
     @EJB ReportBean reportBean;
 
