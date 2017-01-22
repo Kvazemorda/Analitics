@@ -1,7 +1,7 @@
 package com.analytics.report.excel.reports;
 
-import com.analytics.report.excel.StyleExcel;
 import com.analytics.report.excel.CreateExcelReport;
+import com.analytics.report.excel.StyleExcel;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -18,7 +18,7 @@ public class ExcelAddRecommendation {
         lastRow = 1;
         this.excelRecommendation = excelRecommendation;
         cellRedLine = 1;
-        sheet = CreateExcelReport.sheetReccomendation;
+        sheet = CreateExcelReport.sheetRecommendation;
         if(excelRecommendation.getSearchOrContext() != null){
             addRSearchOrCompany();
         }

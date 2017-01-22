@@ -17,7 +17,6 @@ public class Client {
     @Basic @Column(nullable = false) private String oAuthorIDDirect;
     @Basic @Column(nullable = false) private String loginDirect;
 
-
     public Client() {
     }
 
@@ -65,4 +64,8 @@ public class Client {
         this.loginDirect = loginDirect;
     }
 
+    @Override
+    public String toString() {
+        return loginDirect;
+    }
 }

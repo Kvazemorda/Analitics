@@ -3,8 +3,8 @@ package com.analytics.report.excel.reports;
 import com.analytics.entity.client.QueryClient;
 import com.analytics.report.dao.SourceDetailDAO;
 import com.analytics.report.entity.report.SourceDetail;
-import com.analytics.report.excel.StyleExcel;
 import com.analytics.report.excel.CreateExcelReport;
+import com.analytics.report.excel.StyleExcel;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Name;
@@ -40,7 +40,6 @@ public class ExcelSourceDetail implements FillingExcel {
 
     @Override
     public void fillListToExcel(XSSFSheet sheet) {
-        System.out.println(sourceDetailList.size() + " ///////////////////////////////");
         for(int i = 0; i < sourceDetailList.size(); i++){
             Row row = sheet.getRow(i + 1);
             if(row == null){
@@ -107,8 +106,8 @@ public class ExcelSourceDetail implements FillingExcel {
         double max = 0.0;
         int index = 0;
         for(int i = 0; i < sourceDetailList.size(); i++){
-            if(max < sourceDetailList.get(i).getConversationDetail() / sourceDetailList.get(i).getCountVisited()){
-                max = sourceDetailList.get(i).getConversationDetail() / sourceDetailList.get(i).getCountVisited();
+            if(max < sourceDetailList.get(i).getConversationDetail() / (double) sourceDetailList.get(i).getCountVisited()){
+                max = sourceDetailList.get(i).getConversationDetail() / (double) sourceDetailList.get(i).getCountVisited();
                 index = i;
             }
         }

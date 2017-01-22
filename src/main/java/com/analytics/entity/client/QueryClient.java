@@ -12,6 +12,10 @@ public class QueryClient {
     private Client client;
     private ArrayList<CompanyDirect> companyDirect;
 
+    public QueryClient(){
+
+    }
+
     public QueryClient(String date1, String date2, Client client, double maxCpa) {
         this.date1 = date1;
         this.date2 = date2;
@@ -57,5 +61,16 @@ public class QueryClient {
 
     public void setCompanyDirect(ArrayList<CompanyDirect> companyDirect) {
         this.companyDirect = companyDirect;
+    }
+
+    @Override
+    public String toString() {
+        return "QueryClient{" +
+                "date1='" + date1 + '\'' +
+                ", date2='" + date2 + '\'' +
+                ", maxCpa=" + maxCpa +
+                ", client=" + client +
+                ", companyDirect=" + companyDirect +
+                '}';
     }
 }

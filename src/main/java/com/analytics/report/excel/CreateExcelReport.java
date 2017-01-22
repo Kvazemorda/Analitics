@@ -3,6 +3,8 @@ package com.analytics.report.excel;
 import com.analytics.entity.client.QueryClient;
 import com.analytics.report.entity.report.SourceVisited;
 import com.analytics.report.excel.reports.*;
+import com.analytics.view.MyUI;
+import com.vaadin.ui.Label;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
@@ -12,10 +14,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.*;
 
 public class CreateExcelReport {
-    private String nameTemplate = "template/report.xlsx";
-    private String pathToSaveReport = "ready/report1.xlsx";
+    private String nameTemplate = "C:\\ftp\\report.xlsx";
+    public static String pathToSaveReport = "C:\\ftp\\report1.xlsx"; //"\\ready\\report1.xlsx";
     public static XSSFWorkbook book;
-    public static XSSFSheet sheetData, sheetReport, sheetReccomendation;
+    public static XSSFSheet sheetData, sheetReport, sheetRecommendation;
     public static XSSFSheet sheetStyle;
     private CreationHelper creationHelper;
     private SourceVisited sourceVisited;
@@ -35,7 +37,7 @@ public class CreateExcelReport {
             sheetData = book.getSheet("ChanelTrafic");
             sheetReport = book.getSheet("report");
             sheetStyle = book.getSheet("style");
-            sheetReccomendation = book.getSheet("recommendation");
+            sheetRecommendation = book.getSheet("recommendation");
             clearSheet();
             FileOutputStream fileOutputStream = new FileOutputStream(pathToSaveReport);
 
@@ -55,6 +57,9 @@ public class CreateExcelReport {
             creationHelper = book.getCreationHelper();
             book.write(fileOutputStream);
             book.close();
+
+
+            MyUI.layout.addComponent(new Label("excel is ready"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

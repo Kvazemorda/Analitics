@@ -6,7 +6,7 @@
 
     <groupId>analytics</groupId>
     <artifactId>analytics</artifactId>
-    <version>0.1</version>
+    <version>0_1</version>
 
 
     <build>

@@ -1,12 +1,11 @@
 package com.analytics.report;
 
 public class Constant {
-    public static final String OUATH_TOKEN = "AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-    public static final String HOST = "https://api-metrika.yandex.ru/stat/v1/data?preset=source_summary&id=38437860&oauth_token=AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-    public static final String HOST2 = "https://api-metrika.yandex.ru/stat/v1/data?preset=sources_summary&id=38437860&oauth_token=AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-    public static final String VISIED ="https://api-metrika.yandex.ru/stat/v1/data/bytime?date1=2016-10-28&date2=2016-11-27&group=month&dimensions=ym:s:%3Cattribution%3ETrafficSource&attribution=last&ids=38437860&metrics=ym:s:visits&oauth_token=AQAAAAASjEe8AAOfZ4L88v3m-U9PvgBL9J0AI-g";
-    public static final String PATH_AOUTH_TO_DIRECT = "https://oauth.yandex.ru/authorize?response_type=code&client_id=8e5c0c896f2749c8b08a5324b53d2bf0";
-    String tokenToDirectExcelMETRICA = "AQAAAAAZtlXnAAOfZy_UO_ohF09ig1-Ur7eADwk";
+    public static final String DIRECT_ID = "8e5c0c896f2749c8b08a5324b53d2bf0";
+    public static final String METRIC_ID = "5e7267e160ae4968a765c36e247f5f99";
+    public static final String METRIC_PASSWORD = "1473c72c46e141b78b8764a433444a14";
+    public static final String DEVICE_NAME = "superDevice";
+    public static final String DEVICE_ID = "JJLEi9302jLCKJVe023948";
 
     //ID direct ppovankorneft
     //public static final String ID_DIRECT = "8e5c0c896f2749c8b08a5324b53d2bf0";
