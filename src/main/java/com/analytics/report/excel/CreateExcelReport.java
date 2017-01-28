@@ -3,8 +3,6 @@ package com.analytics.report.excel;
 import com.analytics.entity.client.QueryClient;
 import com.analytics.report.entity.report.SourceVisited;
 import com.analytics.report.excel.reports.*;
-import com.analytics.view.MyUI;
-import com.vaadin.ui.Label;
 import org.apache.poi.hssf.util.AreaReference;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellReference;
@@ -58,8 +56,6 @@ public class CreateExcelReport {
             book.write(fileOutputStream);
             book.close();
 
-
-            MyUI.layout.addComponent(new Label("excel is ready"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

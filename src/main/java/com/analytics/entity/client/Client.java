@@ -20,6 +20,17 @@ public class Client {
     public Client() {
     }
 
+    public Client(String metricsID, String oAuthorIDMetric, String loginDirect) {
+        this.metricsID = metricsID;
+        this.oAuthorIDMetric = oAuthorIDMetric;
+        this.loginDirect = loginDirect;
+    }
+
+    public Client(String oAuthorIDDirect, String loginDirect) {
+        this.oAuthorIDDirect = oAuthorIDDirect;
+        this.loginDirect = loginDirect;
+    }
+
     public Client(String loginDirect) {
         this.loginDirect = loginDirect;
     }
